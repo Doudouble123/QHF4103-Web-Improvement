@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Sell Platform - Homepage</title>
+    <title>Add Car Information - Car Sales Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background-color: #e8f0e8;
+            background-color: #f0f5f0;
             color: #333;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
-        /* 导航栏样式 - 灰绿色主题 */
+        /* Navigation bar styles - Gray Green Theme */
         .navbar {        
             height: 60px;        
             background-color: rgba(87, 86, 86, 0.919);        
@@ -79,8 +81,8 @@
             position: absolute;        
             width: 0;        
             height: 2px;        
-            bottom:0;        
-             left: 0;        
+            bottom: 0;        
+            left: 0;        
             background-color: #35f361;        
             transition: width 0.3s;    
         }
@@ -88,10 +90,425 @@
         .nav-link:hover::after {        
             width: 100%;    
         }
-
-        /* 响应式设计 */
+        
+        /* Main content area */
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 30px;
+            gap: 25px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Left button panel */
+        .left-nav {
+            width: 220px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #4a6f4a;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f0e8;
+            width: 80%;
+            text-align: center;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 8px;
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background-color: white;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            border-left: 4px solid transparent;
+            font-size: 16px;
+            color: #5a6c7d;
+        }
+        
+        .nav-button i {
+            width: 20px;
+            text-align: center;
+            color: #7b8a9e;
+        }
+        
+        .nav-button:hover {
+            background-color: #f0f5f0;
+            color: #4a6f4a;
+            border-left-color: #7bc47a;
+        }
+        
+        .nav-button.active {
+            background-color: #e8f4e8;
+            color: #4a6f4a;
+            border-left-color: #4a6f4a;
+            font-weight: 600;
+        }
+        
+        .nav-button.active i {
+            color: #4a6f4a;
+        }
+        
+        /* Middle form container */
+        .form-container {
+            flex: 1;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eef2f7;
+        }
+        
+        .form-header h2 {
+            font-size: 24px;
+            color: #4a6f4a;
+        }
+        
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #7b8a9e;
+        }
+        
+        .progress-bar i {
+            color: #4CAF50;
+        }
+        
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #37474f;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #7bc47a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(123, 196, 122, 0.1);
+        }
+        
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected {
+            border-color: #4a6f4a;
+            transform: scale(1.1);
+        }
+        
+        .image-upload-area {
+            border: 2px dashed #c2d1d9;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .image-upload-area:hover {
+            border-color: #7bc47a;
+            background-color: #f8faf8;
+        }
+        
+        .image-upload-area i {
+            font-size: 48px;
+            color: #a0b3a0;
+            margin-bottom: 15px;
+        }
+        
+        .image-upload-area h4 {
+            color: #5a6c5a;
+            margin-bottom: 8px;
+        }
+        
+        .image-upload-area p {
+            color: #8a9b8a;
+            font-size: 14px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eef2f7;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #4a6f4a;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a8c5a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 111, 74, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: #f0f5f0;
+            color: #5a6c7d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e6e0;
+        }
+        
+        /* Right panel */
+        .right-panel {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .preview-card, .quick-actions, .tips-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #7bc47a 0%, #4a6f4a 100%);
+            color: white;
+            padding: 18px 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .car-preview {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .car-image {
+            width: 100%;
+            height: 180px;
+            background-color: #f0f4f8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .car-image i {
+            font-size: 60px;
+            color: #b0bec5;
+        }
+        
+        .car-details {
+            text-align: left;
+        }
+        
+        .car-detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f4f8;
+        }
+        
+        .detail-label {
+            color: #7b8a9e;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: #37474f;
+            font-weight: 600;
+        }
+        
+        .quick-action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            background-color: #f8faf8;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #e8f4e8;
+            transform: translateY(-3px);
+        }
+        
+        .action-btn i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #4a6f4a;
+        }
+        
+        .tips-list {
+            list-style-type: none;
+        }
+        
+        .tips-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f4f8;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .tips-list i {
+            color: #4CAF50;
+            margin-top: 3px;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-nav, .right-panel {
+                width: 100%;
+            }
+            
+            .left-nav {
+                flex-direction: row;
+                padding: 15px;
+            }
+            
+            .nav-title {
+                display: none;
+            }
+            
+            .nav-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-button {
+                width: auto;
+                flex: 1;
+                min-width: 150px;
+                justify-content: center;
+            }
+            
+            .right-panel {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .preview-card, .quick-actions, .tips-card {
+                flex: 1;
+                min-width: 300px;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .navbar {            
+            .navbar {
                 padding: 0 20px;            
                 flex-direction: column;            
                 height: auto;            
@@ -108,9 +525,26 @@
             }        
             .nav-link {            
                 font-size: 17px;        
-            }    
+            }
+            
+            .main-container {
+                padding: 15px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
-
+        
         @media (max-width: 480px) {
             .navbar {            
                 padding: 12px 15px;            
@@ -126,248 +560,10 @@
                 font-size: 22px;        
             }    
         }
-
-        /* 主内容区域 */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 80vh;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            margin-bottom: 40px;
-        }
-
-        .hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.8);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            color: white;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            max-width: 700px;
-        }
-
-        .cta-button {
-            background-color: #8bc34a;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:hover {
-            background-color: #7cb342;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-        }
-
-        .signup-link {
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1.1rem;
-        }
-
-        .signup-link a {
-            color: #8bc34a;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .signup-link a:hover {
-            color: #cddc39;
-            text-decoration: underline;
-        }
-
-        /* 特色部分 */
-        .features {
-            display: flex;
-            justify-content: space-around;
-            padding: 60px 40px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin: 0 40px 40px;
-        }
-
-        .feature-card {
-            text-align: center;
-            max-width: 300px;
-            padding: 20px;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: #8bc34a;
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .feature-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* 页脚 */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 40px 0 20px;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .footer-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #8bc34a;
-        }
-
-        .footer-section p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: #8bc34a;
-        }
-
-        .copyright {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #555;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .features {
-                flex-direction: column;
-                align-items: center;
-                gap: 40px;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero p {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                height: 70vh;
-            }
-            
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .cta-button {
-                padding: 12px 30px;
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                height: 60vh;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .cta-button {
-                padding: 10px 25px;
-                font-size: 1rem;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- Navigation bar -->
     <div class="navbar">    
         <div class="logo-container">
             <img src="addcar/logo.png" alt="Car Sell Platform Logo" class="navbar-logo">
@@ -381,76 +577,274 @@
         </div>
     </div>
     
-    <!-- 主图区域 -->
-    <div class="hero">
-        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Race Car">
-        <div class="hero-overlay">
-            <h1>Find Your Perfect Car</h1>
-            Trusted sellers. Simple, fast, and secure online car shopping.
-            <button class="cta-button">Launching</button>
-            <div class="signup-link">Don't have an account? <a href="#">Sign up now</a></div>
-        </div>
-    </div>
-    
-    <!-- 特色部分 -->
-    <div class="features">
-        <div class="feature-card">
-            <div class="feature-icon">
-                <i class="fas fa-shield-alt"></i>
+    <!-- Main content area -->
+    <div class="main-container">
+        <!-- Left navigation buttons -->
+        <div class="left-nav">
+            <div class="nav-title">Information Categories</div>
+            <div class="nav-buttons">
+                <button class="nav-button active" data-section="color">
+                    <i class="fas fa-palette"></i>
+                    <span>Color</span>
+                </button>
+                <button class="nav-button" data-section="model">
+                    <i class="fas fa-car-side"></i>
+                    <span>Model</span>
+                </button>
+                <button class="nav-button" data-section="year">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Year</span>
+                </button>
+                <button class="nav-button" data-section="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                </button>
+                <button class="nav-button" data-section="price">
+                    <i class="fas fa-tag"></i>
+                    <span>Price</span>
+                </button>
+                <button class="nav-button" data-section="image">
+                    <i class="fas fa-camera"></i>
+                    <span>Car Images</span>
+                </button>
             </div>
-            <h3>Trusted Sellers</h3>
-            We verify all sellers to ensure you're dealing with legitimate car dealers and private sellers.
         </div>
         
-        <div class="feature-card">
-            <div class="feature-icon">
-                <i class="fas fa-search"></i>
-            </div>
-            <h3>Easy Search</h3>
-            Advanced filters help you find exactly what you're looking for in seconds.
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">
-                <i class="fas fa-handshake"></i>
-            </div>
-            <h3>Secure Transactions</h3>
-            Our platform ensures safe and secure transactions for peace of mind.
-        </div>
-    </div>
-    
-    <!-- 页脚 -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>About Us</h3>
-                Car Sell Platform is dedicated to making car buying and selling simple, safe, and efficient for everyone.
-            </div>
-            
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <div class="footer-links">
-                    <a href="#">Home</a>
-                    <a href="#">How It Works</a>
-                    <a href="#">Browse Cars</a>
-                    <a href="#">Sell Your Car</a>
-                    <a href="#">FAQ</a>
+        <!-- Middle form container -->
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Add New Car Information</h2>
+                <div class="progress-bar">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Completed 2/6 sections</span>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <div class="footer-links">
-                    <a href="mailto:info@carsellplatform.com">info@carsellplatform.com</a>
-                    <a href="tel:+1234567890">+1 (234) 567-890</a>
-                    <a href="#">123 Car Street, Auto City</a>
+            <!-- Color section -->
+            <div id="color" class="form-section active">
+                <h3>Select Car Color</h3>
+                <p>Please select or enter the primary color of the car</p>
+                
+                <div class="form-group">
+                    <label for="colorInput">Car Color</label>
+                    <input type="text" id="colorInput" class="form-control" placeholder="Enter car color, e.g., Metallic Gray">
                 </div>
+                
+                <div class="form-group">
+                    <label>Or select from common colors</label>
+                    <div class="color-options">
+                        <div class="color-option selected" style="background-color: #2c3e50;" data-color="Space Gray"></div>
+                        <div class="color-option" style="background-color: #e74c3c;" data-color="Bright Red"></div>
+                        <div class="color-option" style="background-color: #3498db;" data-color="Ocean Blue"></div>
+                        <div class="color-option" style="background-color: #2ecc71;" data-color="Emerald Green"></div>
+                        <div class="color-option" style="background-color: #f1c40f;" data-color="Sunshine Yellow"></div>
+                        <div class="color-option" style="background-color: #9b59b6;" data-color="Mystic Purple"></div>
+                        <div class="color-option" style="background-color: #1abc9c;" data-color="Turquoise Green"></div>
+                        <div class="color-option" style="background-color: #ecf0f1;" data-color="Pearl White"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Model section -->
+            <div id="model" class="form-section">
+                <h3>Enter Car Model</h3>
+                <p>Please enter the complete model information of the car</p>
+                
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <select id="brand" class="form-control">
+                        <option value="">Select car brand</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes">Mercedes-Benz</option>
+                        <option value="Audi">Audi</option>
+                        <option value="Tesla">Tesla</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modelName">Model Name</label>
+                    <input type="text" id="modelName" class="form-control" placeholder="e.g., Camry, Model 3, X5">
+                </div>
+                
+                <div class="form-group">
+                    <label for="trim">Trim Level</label>
+                    <input type="text" id="trim" class="form-control" placeholder="e.g., LE, Luxury, Performance">
+                </div>
+            </div>
+            
+            <!-- Year section -->
+            <div id="year" class="form-section">
+                <h3>Select Production Year</h3>
+                <p>Please select the production year and registration year</p>
+                
+                <div class="form-group">
+                    <label for="manufactureYear">Manufacture Year</label>
+                    <input type="number" id="manufactureYear" class="form-control" min="2000" max="2024" value="2022">
+                </div>
+                
+                <div class="form-group">
+                    <label for="registrationYear">Registration Year</label>
+                    <input type="number" id="registrationYear" class="form-control" min="2000" max="2024" value="2022">
+                </div>
+            </div>
+            
+            <!-- Location section -->
+            <div id="location" class="form-section">
+                <h3>Enter Vehicle Location</h3>
+                <p>Please enter the current location of the vehicle</p>
+                
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" placeholder="e.g., New York">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Detailed Address</label>
+                    <input type="text" id="address" class="form-control" placeholder="e.g., 123 Main Street">
+                </div>
+            </div>
+            
+            <!-- Price section -->
+            <div id="price" class="form-section">
+                <h3>Set Sale Price</h3>
+                <p>Please enter the sale price and any applicable discounts</p>
+                
+                <div class="form-group">
+                    <label for="price">Sale Price ($)</label>
+                    <input type="number" id="price" class="form-control" placeholder="e.g., 25000" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="discount">Discount (optional)</label>
+                    <input type="number" id="discount" class="form-control" placeholder="e.g., 1000" min="0">
+                </div>
+            </div>
+            
+            <!-- Image section -->
+            <div id="image" class="form-section">
+                <h3>Upload Car Images</h3>
+                <p>Please upload clear car images, up to 10 images allowed</p>
+                
+                <div class="form-group">
+                    <label>Car Images</label>
+                    <div class="image-upload-area" id="imageUpload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Click or drag images here to upload</h4>
+                        <p>Supports JPG, PNG formats, maximum 5MB per image</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Uploaded Images</label>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+                        <div style="background-color: #f0f4f8; height: 100px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-car" style="font-size: 30px; color: #b0bec5;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form action buttons -->
+            <div class="form-actions">
+                <button class="btn btn-secondary" id="prevBtn">Previous</button>
+                <button class="btn btn-primary" id="nextBtn">Next</button>
             </div>
         </div>
         
-        <div class="copyright">
-            &copy; 2023 Car Sell Platform. All rights reserved.
+        <!-- Right panel -->
+        <div class="right-panel">
+            <!-- Preview card -->
+            <div class="preview-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i> Information Preview
+                </div>
+                <div class="card-content">
+                    <div class="car-preview">
+                        <div class="car-image">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="car-details">
+                            <div class="car-detail-item">
+                                <span class="detail-label">Color:</span>
+                                <span class="detail-value" id="previewColor">Space Gray</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Model:</span>
+                                <span class="detail-value" id="previewModel">Not selected</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Year:</span>
+                                <span class="detail-value" id="previewYear">Not selected</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value" id="previewLocation">Not selected</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Price:</span>
+                                <span class="detail-value" id="previewPrice">Not set</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick actions -->
+            <div class="quick-actions">
+                <div class="card-header">
+                    <i class="fas fa-bolt"></i> Quick Actions
+                </div>
+                <div class="card-content">
+                    <div class="quick-action-buttons">
+                        <button class="action-btn" id="saveDraft">
+                            <i class="fas fa-save"></i>
+                            <span>Save Draft</span>
+                        </button>
+                        <button class="action-btn" id="clearForm">
+                            <i class="fas fa-eraser"></i>
+                            <span>Clear Form</span>
+                        </button>
+                        <button class="action-btn" id="copyInfo">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy Info</span>
+                        </button>
+                        <button class="action-btn" id="templateBtn">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Use Template</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tips card -->
+            <div class="tips-card">
+                <div class="card-header">
+                    <i class="fas fa-lightbulb"></i> Filling Tips
+                </div>
+                <div class="card-content">
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Ensure accurate color descriptions to attract potential buyers</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>High-quality images can increase views by 30%</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Detailed vehicle condition descriptions help with faster sales</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Set reasonable prices by referencing similar models and years</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
 </body>
 </html>
