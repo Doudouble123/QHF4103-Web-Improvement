@@ -236,7 +236,7 @@
             display: inline-block;
             animation: scrollNews 22s linear infinite;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 50;
         }
         .news-track span {
             margin-right: 45px;
@@ -288,7 +288,7 @@
             background: #e4ebf2;
             padding: 8px 20px;
             border-radius: 60px;
-            font-weight: 500;
+            font-weight: 50;
             color: #273746;
         }
         .brand-list {
@@ -355,7 +355,7 @@
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px dashed #ccc;
-            font-weight: 500;
+            font-weight: 50;
         }
 
         .why {
@@ -386,7 +386,7 @@
             transition: 0.25s;
             cursor: pointer;
             gap: 18px;
-            font-weight: 500;
+            font-weight: 50;
         }
         .service-it:hover {
             background: #17b809d8;
@@ -498,6 +498,24 @@
         .back-to-top:hover {
             background: #ffd078;
             transform: scale(1.05);
+        }
+
+        /* 超级炫酷底部小车 —— 贴最底端 */
+        .cool-car {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 130px;
+            height: 50px;
+            z-index: 998;
+            cursor: pointer;
+            user-select: none;
+            filter: drop-shadow(0 0 10px currentColor);
+            transition: transform 0.1s linear;
+            color: #ff3b30; /* 初始红色 */
+        }
+        .cool-car:active {
+            transform: scale(0.95);
         }
     </style>
 </head>
@@ -649,6 +667,16 @@
 
 <div class="back-to-top" id="backToTopBtn"><i class="fas fa-arrow-up"></i></div>
 
+<!-- 最底部炫酷小车 -->
+<svg class="cool-car" id="colorCar" viewBox="0 0 100 40">
+    <path d="M10 25 Q15 15 35 15 H65 Q85 15 90 25 L92 32 H8 L10 25Z" fill="currentColor"></path>
+    <rect x="20" y="15" width="60" height="10" rx="2" fill="rgba(255,255,255,0.2)"></rect>
+    <circle cx="25" cy="32" r="8" fill="#222"></circle>
+    <circle cx="75" cy="32" r="8" fill="#222"></circle>
+    <circle cx="25" cy="32" r="4" fill="#555"></circle>
+    <circle cx="75" cy="32" r="4" fill="#555"></circle>
+</svg>
+
 <script>
     function JS(num){
         const messages = {
@@ -770,6 +798,69 @@
             }
         });
     });
+
+    // ===================== 炫酷小车：自动移动 + 点击换色 =====================
+    const car = document.getElementById('colorCar');
+    let isDragging = false;
+    let offsetX = 0;
+    let autoMove = true;
+    let colorIndex = 0;
+    const colors = ['#ff3b30', '#007bff', '#ffcc00', '#34c759', '#af52de', '#1c1c1e'];
+
+    // 点击换色
+    car.addEventListener('click', () => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        car.style.color = colors[colorIndex];
+    });
+
+    // 拖动
+    car.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        autoMove = false;
+        offsetX = e.clientX - car.getBoundingClientRect().left;
+        car.style.transition = 'none';
+    });
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        let x = e.clientX - offsetX;
+        const maxX = window.innerWidth - car.offsetWidth;
+        if (x < 0) x = 0;
+        if (x > maxX) x = maxX;
+        car.style.left = x + 'px';
+    });
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        setTimeout(() => { autoMove = true; }, 3000);
+        car.style.transition = 'transform 0.1s linear';
+    });
+
+    // 自动移动（严格限制在页面内）
+    let dir = 2;
+    function animateCar() {
+        if (!autoMove || isDragging) {
+            requestAnimationFrame(animateCar);
+            return;
+        }
+        const carWidth = car.offsetWidth;
+        const maxX = window.innerWidth - carWidth;
+        let x = parseFloat(car.style.left) || 0;
+        
+        x += dir;
+        
+        // 边界限制：不会超出屏幕
+        if (x <= 0) {
+            x = 0;
+            dir = 2;
+        }
+        if (x >= maxX) {
+            x = maxX;
+            dir = -2;
+        }
+        
+        car.style.left = x + 'px';
+        requestAnimationFrame(animateCar);
+    }
+    animateCar();
 </script>
 </body>
 </html>
