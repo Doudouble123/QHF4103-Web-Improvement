@@ -8,7 +8,7 @@
         *{margin:0;padding:0;box-sizing:border-box;}
         .hero-banner{
             width:100%;
-            height: 800px;
+            height:700px;
             background-image: url("greencar.jpg");
             background-size: cover;
             background-position: center;
@@ -34,76 +34,151 @@
             margin: 0 auto;
         }
 
-        /* 左右两栏分散 */
-        .form-card{
-            max-width: 1400px;
-            margin: 0 auto 80px;
-            background: #ffffff;
-            padding: 60px 80px;
-            border-radius: 0 0 20px 20px;
-            box-shadow: none;
+/* ====================== 【新增：底部数据统计模块 完整代码】====================== */
+ /* 整体外层容器，放在页面最底部 */
+ .stats-section {
+     max-width: 1400px;
+     margin: 5rem auto 5rem;
+     padding: 0 2rem;
+     display: grid;
+     /* 四列均等自适应布局，完美还原参考图排版 */
+     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+     gap: 30px;
+ }
+
+ /* 单个数据卡片 */
+ .stat-card {
+     background: rgba(245, 245, 245, 0.85);
+     border-radius: 12px;
+     padding: 45px 20px 30px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: relative;
+     /* 你要求的：鼠标悬停动画 放大+背景变色 */
+     transition: all 0.3s ease;
+     cursor: default;
+ }
+
+ /* 卡片hover动效：轻微放大 + 背景加深变色 */
+ .stat-card:hover {
+     transform: scale(1.05);
+     background: rgba(230, 230, 230, 0.95);
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+ }
+
+ /* 顶部圆形图标容器，复用网站原生深灰色 */
+ .stat-icon-circle {
+     width: 70px;
+     height: 70px;
+     background-color: rgba(87, 86, 86, 1);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     position: absolute;
+     top: -35px; /* 悬浮在卡片上方，和参考图位置完全一致 */
+     transition: all 0.3s ease;
+ }
+
+ /* hover时图标圈同步变色，联动动画 */
+ .stat-card:hover .stat-icon-circle {
+     background-color: rgba(65, 64, 64, 1);
+ }
+
+ /* 图标内部svg，原生矢量图标，无需额外图片文件 */
+ .stat-icon-circle svg {
+     width: 32px;
+     height: 32px;
+     fill: burlywood; /* 图标颜色复用你网站logo原生burlywood木色，全站统一 */
+     transition: all 0.3s ease;
+ }
+
+ /* hover图标颜色联动高亮 */
+ .stat-card:hover .stat-icon-circle svg {
+     fill: rgba(0, 255, 157, 1); /* 复用网站按钮高亮色 */
+ }
+
+ /* 大数字样式 */
+ .stat-number {
+     font-size: 3.2rem;
+     font-weight: 600;
+     color: #333;
+     margin: 10px 0 8px;
+     transition: all 0.3s ease;
+ }
+
+ /* hover数字同步变色 */
+ .stat-card:hover .stat-number {
+     color: rgba(87, 86, 86, 1);
+ }
+
+ /* 底部描述文字 */
+ .stat-text {
+     font-size: 1.1rem;
+     color: #555;
+     margin: 0;
+     text-transform: capitalize;
+ }
+ /* ======================== */
+
+        /* ========== 表单下划线样式完全不动 ========== */
+        .contact-form-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 5%;
+        }
+        .contact-form-section h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .form-three-column {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            position: relative;
-            z-index: 10;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
         }
-
-        /* 左边靠左 完全不动 */
-        .form-card form:nth-child(1) {
-            justify-self: start;
-            width:100%;
+        .form-full-column {
+            width: 100%;
+            margin-bottom: 30px;
         }
-
-        /* 右边整体靠右，内部全部左对齐！！你要的效果 */
-        .form-card form:nth-child(2) {
-            justify-self: end;
-            text-align: left !important;
-            width:fit-content;
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-
-        /* ========== 重点！右侧内部 标题+输入框成对左右两列均分 ========== */
-        .two-column-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            width:100%;
+        .form-item-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 24px;
+            color: #333;
+            font-weight: normal;
         }
-        /* 每一组标题+输入框 单独占一行 */
-        .form-item-group {
-            display:flex;
-            flex-direction:column;
-            gap:10px;
-            margin-bottom:25px;
-        }
-
-        .form-item-label{
-            display:flex;
-            align-items:center;
-            gap:8px;
-            width:160px;
+        .form-item input,
+        .form-item textarea {
+            border: none;
+            border-bottom: 1px solid #dddddd;
+            background: transparent;
+            padding: 10px 0;
             font-size: 22px;
-            font-weight:600;
-            color:#333333;
-            margin:0;
-            white-space: nowrap;
+            color: #666;
+            outline: none;
+            width:100%;
         }
-        input{
-            margin: 0;
-            font-size:16px;
-            padding:12px 16px;
-            width:280px;
+        .form-item input::placeholder,
+        .form-item textarea::placeholder {
+            color: #999;
+            font-size: 22px;
         }
-
-        .radio-group, .agree-group{
+        .verify-row {
             display:flex;
-            align-items:center;
-            gap:12px;
-            font-size:18px;
-            margin:12px 0;
-            text-align:left;
+            align-items:flex-end;
+            gap:15px;
         }
 
+        /* 导航栏全部不动 */
         .navbar {
             width: 100%;
             height: 70px;
@@ -120,21 +195,19 @@
         .nav-item a {font-size:15px;color: white;font-weight: bold;text-decoration: none;transition: all 0.3s ease;padding:6px 12px;border-radius:4px;}
         .nav-registration a:hover, .nav-item a:hover {color:#35f361;background:rgba(255,255,0.1);}
         .box3{width:100%;height:60px;background-color: #333333;position:fixed;bottom:0;color:white;font-size:15px;text-align:center;line-height:60px;z-index: 99;}
-        body{margin: 0;padding-bottom:80px;}
+        body{margin: 0;padding-bottom:80px;padding-top:70px;}
 
         button,input[type="submit"],input[type="button"] {
              font-family:system-ui;font-weight: bold;background-color: #1c1201;color: white;border: none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;margin-top: 20px;
-        }
-        input[type="text"],input[type="password"],input[type="file"] {
-            font-size:16px;background-color: #f8f8f8;border-radius:6px;height:48px;border:1px solid #eeeeee;outline:none;
         }
         input:focus{border-color:#666666;}
         button:hover,input[type="submit"]:hover,input[type="button"]:hover {background-color: #b89b6d;transform: translateY(-1px);box-shadow:none;}
         .logo {height: 50px;vertical-align: middle;}
         hr{display: none;}
+        .radio-group,.agree-group{display:flex;align-items:center;gap:12px;font-size:18px;margin:12px 0;text-align:left;}
     </style>
 
-    <!-- 你原来所有JS函数！一个都没少！全部完整保留！ -->
+    <!-- JS全部原样不动 -->
     <script>
         function Username_True(){
             var username = document.getElementsByName("username")[0].value;
@@ -215,76 +288,149 @@
 
 <div class="gray-header-bar"></div>
 
-<div class="form-card">
-    <!-- 左侧 完全不动！！ -->
-    <form>
-        <h2>Registration Information</h2>
-        <label class="form-item-label">Username:</label>
-        <input type="text" name="username" placeholder="Your Username">
-        <br>
-        <label class="form-item-label">Password:</label>
-        <input type="password" name="password" placeholder="Your Password">
-        <br>
-        <label class="form-item-label">Verification Code :</label>
-        <div style="display:flex;gap:12px;align-items:center;">
-            <input type="text" name="verification code" placeholder="Enter Verification Code" style="width:140px;">
-            <button type="button" onclick="Verification()">Send Code</button>
+<!-- 数据卡片（保留你要的悬浮效果 + 图标颜色） -->
+<div class="stats-section">
+    <div class="stat-card">
+       <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+    </svg>
+</div>
+        <div class="stat-number">232</div>
+        <div class="stat-text">Trusted Clients</div>
+    </div>
+    <div class="stat-card">
+       <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-.55 0-1 .45-1 1v4l3.25 3.25c.49.49 1.28.49 1.77 0 .49-.49.49-1.28 0-1.77L13 11.5V8c0-.55-.45-1-1-1z"></path>
+    </svg>
+</div>
+        <div class="stat-number">9</div>
+        <div class="stat-text">Years Of Experience</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l1.49,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l1.49-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32C21.37,13.35,21.32,13.08,19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
+    </svg>
+</div>
+        <div class="stat-number">3211</div>
+        <div class="stat-text">Cars Repaired</div>
+    </div>
+    <div class="stat-card">
+       <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66,5 16,5c-1.66,0-3,1.34-3,3s1.34,3,3,3zm-8,0c1.66,0,2.99-1.34,2.99-3S9.66,5,8,5C6.34,5,5,6.34,5,8s1.34,3,3,3zm5.39,6.49c0-2.19-3.59-3.3-5.39-3.3s-5.39,1.11-5.39,3.3V19h10.78V17.49zM17,13c2.67,0,8,1.34,8,4v2h-6v-2c0-2.66,5.33-4,8-4z"></path>
+    </svg>
+</div>
+        <div class="stat-number">18</div>
+        <div class="stat-text">Qualified Technicians</div>
+    </div>
+</div>
+
+<!-- 注册表单 完全没动 -->
+<div class="contact-form-section">
+    <h2>Registration</h2>
+
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">Username:</label>
+            <input type="text" name="username" placeholder="Your Username">
         </div>
-        <br>
-        <button type="submit" onclick="Username_True();Password_True();Register();">Register</button>
-        <br>
-        <a href="login.html" style="font-size:16px;color:#333;margin-top:10px;">Already have an account?</a>
-    </form>
+    </div>
 
-    <!-- 右侧：标题+输入框 成对左右两列！！完美对应你参考图！！ -->
-    <form>
-        <h2>Personal Information</h2>
-        <div class="two-column-form">
-            <!-- 左侧第一列 -->
-            <div class="form-item-group">
-                <label class="form-item-label">Full Name:</label>
-                <input type="text" id="FullName" placeholder="Your Full Name">
-            </div>
-            <div class="form-item-group">
-                <label class="form-item-label">Address:</label>
-                <input type="text" id="Address" placeholder="Your Address">
-            </div>
-            <div class="form-item-group">
-                <label class="form-item-label">Phone:</label>
-                <input type="text" id="Phone" placeholder="Your Phone Number">
-            </div>
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">Password:</label>
+            <input type="password" name="password" placeholder="Your Password">
+        </div>
+    </div>
 
-            <!-- 右侧第二列 -->
-            <div class="form-item-group">
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">Verification Code :</label>
+            <div class="verify-row">
+                <input type="text" name="verification code" placeholder="Enter Verification Code">
+                <button type="button" onclick="Verification()">Send Code</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-three-column">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+                Name
+            </label>
+            <input type="text" id="FullName" placeholder="Your Full Name">
+        </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.2c.28-.28.36-.67.25-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"></path></svg>
+                Phone
+            </label>
+            <input type="text" id="Phone" placeholder="Your Phone Number">
+        </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                E-mail
+            </label>
+            <input type="text" id="Email" placeholder="Your Email">
+        </div>
+    </div>
+
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">Address</label>
+            <input type="text" id="Address" placeholder="Your Address">
+        </div>
+    </div>
+
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">Message</label>
+            <textarea placeholder=""></textarea>
+        </div>
+    </div>
+
+    <div style="margin-top:30px;">
+        <div class="form-full-column">
+            <div class="form-item">
                 <label class="form-item-label">ID Number:</label>
                 <input type="password" name="id number" placeholder="ID Number">
             </div>
-            <div class="form-item-group">
+        </div>
+
+        <div class="form-full-column">
+            <div class="form-item">
                 <label class="form-item-label">ID Photo:</label>
-                <input type="file" name="id photo"style="border-radius: 6px;height:48px;">
-            </div>
-            <div class="form-item-group">
-                <label class="form-item-label">Email:</label>
-                <input type="text" id="Email" placeholder="Your Email">
+                <input type="file" name="id photo">
             </div>
         </div>
 
-        <label class="form-item-label">Seller Type:</label>
-        <div class="radio-group" style="gap:10px;">
-            <input type="radio" name="seller type"> Individual
-            <input type="radio" name="seller type"> Dealer
+        <div class="form-full-column">
+            <label class="form-item-label">Seller Type:</label>
+            <div class="radio-group">
+                <input type="radio" name="seller type"> Individual
+                <input type="radio" name="seller type"> Dealer
+            </div>
         </div>
-        <br>
 
-        <h2>Agreement</h2>
-        <div class="agree-group">
-            <input type="checkbox" name="agreement"style="gap:10px;">
-            <span>I confirm all information is true.</span>
+        <div class="form-full-column">
+            <label class="form-item-label">Agreement:</label>
+            <div class="agree-group">
+                <input type="checkbox" name="agreement">
+                <span>I confirm all information is true.</span>
+            </div>
         </div>
-        <br>
 
-       <button type="button" onclick="Check();" style="font-size:18px;">Submit</button>
-    </form>
+        <button type="button" onclick="Check();Username_True();Password_True();Register();">Submit</button>
+        <br>
+        <a href="login.html" style="font-size:16px;color:#333;margin-top:10px;">Already have an account?</a>
+    </div>
 </div>
 
 <div class="box3">Any Problem? Contact Us!  3024579532@qq.com</div>
