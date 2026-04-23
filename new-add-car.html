@@ -17,8 +17,6 @@
             background-color: #f0f5f0;
             color: #333;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
         
         /* Navigation bar styles - Gray Green Theme */
@@ -464,6 +462,175 @@
             margin-top: 3px;
         }
         
+        /* 平台优势部分样式 - 与现有灰绿色主题保持一致 */
+        .platform-features {
+            padding: 60px 30px;
+            background: linear-gradient(to bottom, #f8faf8 0%, #f0f5f0 100%);
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .platform-features h3 {
+            font-size: 28px;
+            color: #4a6f4a;
+            margin-bottom: 40px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .platform-features h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #7bc47a, #4a6f4a);
+            border-radius: 2px;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-card-1 {
+            border-top-color: #28a745;
+        }
+        
+        .feature-card-2 {
+            border-top-color: #007bff;
+        }
+        
+        .feature-card-3 {
+            border-top-color: #ffc107;
+        }
+        
+        .feature-card-4 {
+            border-top-color: #e74c3c;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .icon-1 {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .icon-2 {
+            background: linear-gradient(135deg, #007bff, #4dabf7);
+        }
+        
+        .icon-3 {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .icon-4 {
+            background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+        }
+        
+        .feature-card h4 {
+            color: #37474f;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: #5a6c7d;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .feature-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f4f8;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a6f4a;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #7b8a9e;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .feature-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #4a6f4a;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .features-cta {
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        .features-cta p {
+            color: #5a6c7d;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
         /* Responsive design */
         @media (max-width: 1200px) {
             .main-container {
@@ -542,6 +709,24 @@
             
             .btn {
                 width: 100%;
+            }
+            
+            .platform-features {
+                padding: 40px 20px;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .feature-card {
+                padding: 25px 20px;
+            }
+            
+            .feature-stats {
+                flex-direction: column;
+                gap: 10px;
             }
         }
         
@@ -876,6 +1061,97 @@
             </div>
         </div>
     </div>
+    
+    <!-- 平台优势展示部分 -->
+    <div class="platform-features">
+        <h3>Why Choose Our Platform?</h3>
+        <div class="features-container">
+            
+            <!-- 安全与保障 -->
+            <div class="feature-card feature-card-1">
+                <span class="feature-badge">Most Popular</span>
+                <div class="feature-icon icon-1">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Safe & Secure Transactions</h4>
+                <p>Your transactions are protected with bank-level encryption. We verify all buyers and sellers to ensure a trustworthy marketplace.</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Secure</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 快速销售 -->
+            <div class="feature-card feature-card-2">
+                <div class="feature-icon icon-2">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h4>Fast & Easy Selling</h4>
+                <p>List your car in minutes and reach thousands of potential buyers. Our intelligent matching system connects you with the right customers.</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">3.2M</span>
+                        <span class="stat-label">Active Buyers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">7 Days</span>
+                        <span class="stat-label">Avg. Sell Time</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 最佳价格 -->
+            <div class="feature-card feature-card-3">
+                <div class="feature-icon icon-3">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h4>Get the Best Price</h4>
+                <p>Our pricing algorithm analyzes market trends to help you set the optimal price. Receive competitive offers from verified buyers.</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15%</span>
+                        <span class="stat-label">Higher Price</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Free</span>
+                        <span class="stat-label">Valuation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 专业服务 -->
+            <div class="feature-card feature-card-4">
+                <div class="feature-icon icon-4">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4>Expert Support</h4>
+                <p>Our car specialists are available to assist with listing optimization, price suggestions, and negotiation support throughout the process.</p>
+                <div class="feature-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">4.9★</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features-cta">
+            <p>Join thousands of satisfied sellers who trust our platform</p>
+            <button class="btn btn-primary" id="learnMoreBtn" style="padding: 12px 30px; font-size: 16px;">
+                <i class="fas fa-play-circle"></i> Learn How It Works
+            </button>
+        </div>
+    </div>
 
     <script>
         // 获取DOM元素
@@ -914,22 +1190,194 @@
         // 当前激活的表单部分索引
         let currentSectionIndex = 0;
         const sectionIds = ['color', 'model', 'year', 'location', 'price', 'image'];
-        const sectionNames = ['Color', 'Model', 'Year', 'Location', 'Price', 'Images'];
         
         // 更新进度条
         function updateProgress() {
             progressText.textContent = `Completed ${currentSectionIndex + 1}/6 sections`;
         }
         
+        // 清空表单函数
+        function clearForm() {
+            console.log('clearForm function called');
+            if(confirm('Are you sure you want to clear all form content?')) {
+                console.log('User confirmed clear form');
+                
+                // 清空表单逻辑
+                colorInput.value = '';
+                document.getElementById('brand').value = '';
+                document.getElementById('modelName').value = '';
+                document.getElementById('trim').value = '';
+                document.getElementById('manufactureYear').value = '2022';
+                document.getElementById('registrationYear').value = '2022';
+                document.getElementById('city').value = '';
+                document.getElementById('address').value = '';
+                document.getElementById('state').value = '';
+                document.getElementById('zipCode').value = '';
+                document.getElementById('price').value = '';
+                document.getElementById('discount').value = '';
+                document.getElementById('condition').value = '';
+                
+                // 重置颜色选择
+                console.log('Resetting color selection');
+                colorOptions.forEach(option => option.classList.remove('selected'));
+                colorOptions[0].classList.add('selected');
+                formState.color = 'Space Gray';
+                updatePreview('color', 'Space Gray');
+                
+                // 清除图片
+                console.log('Clearing images');
+                formState.images = [];
+                uploadedImagesContainer.innerHTML = '';
+                
+                // 重置表单状态和预览
+                formState.model = '';
+                formState.year = '';
+                formState.location = '';
+                formState.price = '';
+                formState.condition = '';
+                
+                updatePreview('model', 'Not selected');
+                updatePreview('year', 'Not selected');
+                updatePreview('location', 'Not selected');
+                updatePreview('price', 'Not set');
+                updatePreview('condition', 'Not set');
+                
+                // 回到第一步
+                currentSectionIndex = 0;
+                updateActiveSection();
+                updateProgress();
+                
+                // 清空localStorage中的草稿
+                localStorage.removeItem('carFormDraft');
+                
+                alert('Form cleared successfully!');
+            } else {
+                console.log('User canceled clear form');
+            }
+        }
+        
+        // 保存草稿
+        function saveDraft() {
+            // 收集所有表单数据
+            const formData = {
+                color: formState.color,
+                brand: document.getElementById('brand').value,
+                modelName: document.getElementById('modelName').value,
+                trim: document.getElementById('trim').value,
+                manufactureYear: document.getElementById('manufactureYear').value,
+                registrationYear: document.getElementById('registrationYear').value,
+                city: document.getElementById('city').value,
+                address: document.getElementById('address').value,
+                state: document.getElementById('state').value,
+                zipCode: document.getElementById('zipCode').value,
+                price: document.getElementById('price').value,
+                discount: document.getElementById('discount').value,
+                condition: document.getElementById('condition').value,
+                images: formState.images.length
+            };
+            
+            // 保存到localStorage
+            localStorage.setItem('carFormDraft', JSON.stringify(formData));
+            alert('Draft saved successfully!');
+        }
+        
+        // 复制信息
+        function copyInfo() {
+            // 收集所有信息
+            const carInfo = `Car Information Summary:\n
+Color: ${formState.color}
+Model: ${formState.model || 'Not selected'}
+Year: ${previewElements.year.textContent}
+Location: ${formState.location || 'Not selected'}
+Price: ${previewElements.price.textContent}
+Condition: ${formState.condition || 'Not set'}
+Images: ${formState.images.length} uploaded\n
+--- Form Details ---
+Brand: ${document.getElementById('brand').value || 'Not selected'}
+Model Name: ${document.getElementById('modelName').value || 'Not entered'}
+Trim: ${document.getElementById('trim').value || 'Not entered'}
+Manufacture Year: ${document.getElementById('manufactureYear').value}
+Registration Year: ${document.getElementById('registrationYear').value}
+City: ${document.getElementById('city').value || 'Not entered'}
+Address: ${document.getElementById('address').value || 'Not entered'}
+State: ${document.getElementById('state').value || 'Not entered'}
+Zip Code: ${document.getElementById('zipCode').value || 'Not entered'}
+Price: $${document.getElementById('price').value || '0'}
+Discount: $${document.getElementById('discount').value || '0'}
+Condition: ${document.getElementById('condition').value || 'Not selected'}`;
+            
+            // 复制到剪贴板
+            navigator.clipboard.writeText(carInfo).then(() => {
+                alert('Car information copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // 备用方法
+                const textArea = document.createElement('textarea');
+                textArea.value = carInfo;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Car information copied to clipboard!');
+            });
+        }
+        
+        // 使用模板
+        function useTemplate() {
+            if(confirm('Load sample template data? This will replace your current form data.')) {
+                // 填充模板数据
+                colorInput.value = 'Midnight Blue';
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                colorOptions[2].classList.add('selected'); // Ocean Blue
+                formState.color = 'Ocean Blue';
+                updatePreview('color', 'Ocean Blue');
+                
+                document.getElementById('brand').value = 'Toyota';
+                document.getElementById('modelName').value = 'Camry';
+                document.getElementById('trim').value = 'LE';
+                updateModelPreview();
+                
+                document.getElementById('manufactureYear').value = '2021';
+                document.getElementById('registrationYear').value = '2021';
+                formState.year = '2021';
+                updatePreview('year', 'Manufactured 2021');
+                
+                document.getElementById('city').value = 'Los Angeles';
+                document.getElementById('address').value = '123 Hollywood Blvd';
+                document.getElementById('state').value = 'California';
+                document.getElementById('zipCode').value = '90028';
+                updateLocationPreview();
+                
+                document.getElementById('price').value = '28500';
+                document.getElementById('discount').value = '1500';
+                updatePricePreview();
+                
+                document.getElementById('condition').value = 'Excellent';
+                formState.condition = 'Excellent';
+                updatePreview('condition', 'Excellent');
+                
+                alert('Template data loaded successfully!');
+            }
+        }
+        
         // 初始化
         function init() {
+            console.log('Initializing form...');
             // 设置初始激活的导航按钮和表单部分
             updateActiveSection();
             updateProgress();
             
             // 添加快捷操作按钮事件
+            console.log('Setting up quick action buttons...');
             document.getElementById('saveDraft').addEventListener('click', saveDraft);
-            document.getElementById('clearForm').addEventListener('click', clearForm);
+            
+            // 为清空表单按钮添加事件监听器
+            const clearFormBtn = document.getElementById('clearForm');
+            console.log('Clear form button found:', clearFormBtn);
+            
+            clearFormBtn.addEventListener('click', clearForm);
+            console.log('Clear form event listener added');
+            
             document.getElementById('copyInfo').addEventListener('click', copyInfo);
             document.getElementById('templateBtn').addEventListener('click', useTemplate);
             
@@ -982,6 +1430,8 @@
             
             // 下一步按钮事件
             nextBtn.addEventListener('click', goToNextSection);
+            
+            console.log('Form initialization completed');
         }
         
         // 更新激活的部分
@@ -1231,160 +1681,6 @@
             uploadedImagesContainer.appendChild(imageContainer);
         }
         
-        // 保存草稿
-        function saveDraft() {
-            // 收集所有表单数据
-            const formData = {
-                color: formState.color,
-                brand: document.getElementById('brand').value,
-                modelName: document.getElementById('modelName').value,
-                trim: document.getElementById('trim').value,
-                manufactureYear: document.getElementById('manufactureYear').value,
-                registrationYear: document.getElementById('registrationYear').value,
-                city: document.getElementById('city').value,
-                address: document.getElementById('address').value,
-                state: document.getElementById('state').value,
-                zipCode: document.getElementById('zipCode').value,
-                price: document.getElementById('price').value,
-                discount: document.getElementById('discount').value,
-                condition: document.getElementById('condition').value,
-                images: formState.images.length
-            };
-            
-            // 保存到localStorage
-            localStorage.setItem('carFormDraft', JSON.stringify(formData));
-            alert('Draft saved successfully!');
-        }
-        
-        // 清空表单
-        function clearForm() {
-            if(confirm('Are you sure you want to clear all form content?')) {
-                // 清空表单逻辑
-                colorInput.value = '';
-                document.getElementById('brand').value = '';
-                document.getElementById('modelName').value = '';
-                document.getElementById('trim').value = '';
-                document.getElementById('manufactureYear').value = '2022';
-                document.getElementById('registrationYear').value = '2022';
-                document.getElementById('city').value = '';
-                document.getElementById('address').value = '';
-                document.getElementById('state').value = '';
-                document.getElementById('zipCode').value = '';
-                document.getElementById('price').value = '';
-                document.getElementById('discount').value = '';
-                document.getElementById('condition').value = '';
-                
-                // 重置颜色选择
-                colorOptions.forEach(option => option.classList.remove('selected'));
-                colorOptions[0].classList.add('selected');
-                formState.color = 'Space Gray';
-                updatePreview('color', 'Space Gray');
-                
-                // 清除图片
-                formState.images = [];
-                uploadedImagesContainer.innerHTML = '';
-                
-                // 重置表单状态和预览
-                formState.model = '';
-                formState.year = '';
-                formState.location = '';
-                formState.price = '';
-                formState.condition = '';
-                
-                updatePreview('model', 'Not selected');
-                updatePreview('year', 'Not selected');
-                updatePreview('location', 'Not selected');
-                updatePreview('price', 'Not set');
-                updatePreview('condition', 'Not set');
-                
-                // 回到第一步
-                currentSectionIndex = 0;
-                updateActiveSection();
-                updateProgress();
-                
-                alert('Form cleared successfully!');
-            }
-        }
-        
-        // 复制信息
-        function copyInfo() {
-            // 收集所有信息
-            const carInfo = `Car Information Summary:\n
-Color: ${formState.color}
-Model: ${formState.model || 'Not selected'}
-Year: ${previewElements.year.textContent}
-Location: ${formState.location || 'Not selected'}
-Price: ${previewElements.price.textContent}
-Condition: ${formState.condition || 'Not set'}
-Images: ${formState.images.length} uploaded\n
---- Form Details ---
-Brand: ${document.getElementById('brand').value || 'Not selected'}
-Model Name: ${document.getElementById('modelName').value || 'Not entered'}
-Trim: ${document.getElementById('trim').value || 'Not entered'}
-Manufacture Year: ${document.getElementById('manufactureYear').value}
-Registration Year: ${document.getElementById('registrationYear').value}
-City: ${document.getElementById('city').value || 'Not entered'}
-Address: ${document.getElementById('address').value || 'Not entered'}
-State: ${document.getElementById('state').value || 'Not entered'}
-Zip Code: ${document.getElementById('zipCode').value || 'Not entered'}
-Price: $${document.getElementById('price').value || '0'}
-Discount: $${document.getElementById('discount').value || '0'}
-Condition: ${document.getElementById('condition').value || 'Not selected'}`;
-            
-            // 复制到剪贴板
-            navigator.clipboard.writeText(carInfo).then(() => {
-                alert('Car information copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                // 备用方法
-                const textArea = document.createElement('textarea');
-                textArea.value = carInfo;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('Car information copied to clipboard!');
-            });
-        }
-        
-        // 使用模板
-        function useTemplate() {
-            if(confirm('Load sample template data? This will replace your current form data.')) {
-                // 填充模板数据
-                colorInput.value = 'Midnight Blue';
-                colorOptions.forEach(opt => opt.classList.remove('selected'));
-                colorOptions[2].classList.add('selected'); // Ocean Blue
-                formState.color = 'Ocean Blue';
-                updatePreview('color', 'Ocean Blue');
-                
-                document.getElementById('brand').value = 'Toyota';
-                document.getElementById('modelName').value = 'Camry';
-                document.getElementById('trim').value = 'LE';
-                updateModelPreview();
-                
-                document.getElementById('manufactureYear').value = '2021';
-                document.getElementById('registrationYear').value = '2021';
-                formState.year = '2021';
-                updatePreview('year', 'Manufactured 2021');
-                
-                document.getElementById('city').value = 'Los Angeles';
-                document.getElementById('address').value = '123 Hollywood Blvd';
-                document.getElementById('state').value = 'California';
-                document.getElementById('zipCode').value = '90028';
-                updateLocationPreview();
-                
-                document.getElementById('price').value = '28500';
-                document.getElementById('discount').value = '1500';
-                updatePricePreview();
-                
-                document.getElementById('condition').value = 'Excellent';
-                formState.condition = 'Excellent';
-                updatePreview('condition', 'Excellent');
-                
-                alert('Template data loaded successfully!');
-            }
-        }
-        
         // 验证当前表单部分
         function validateCurrentSection() {
             const currentSection = sectionIds[currentSectionIndex];
@@ -1540,6 +1836,7 @@ Condition: ${document.getElementById('condition').value || 'Not selected'}`;
         
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOMContentLoaded event fired');
             init();
             
             // 检查是否有保存的草稿
@@ -1557,6 +1854,95 @@ Condition: ${document.getElementById('condition').value || 'Not selected'}`;
                 }
             }
         });
+        
+        // 为"Learn How It Works"按钮添加事件
+        document.getElementById('learnMoreBtn')?.addEventListener('click', function() {
+            alert('Redirecting to our how-it-works page...');
+            // 在实际应用中，这里可以跳转到教程页面
+            // window.location.href = 'how-it-works.html';
+        });
+        
+        // 为平台优势卡片添加点击效果
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // 添加点击反馈
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // 获取卡片标题
+                const cardTitle = this.querySelector('h4').textContent;
+                console.log(`Clicked on feature: ${cardTitle}`);
+                
+                // 可以在这里添加更多交互，比如显示详细模态框
+            });
+        });
+        
+        // 动画效果：卡片在滚动到视窗时淡入
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // 为每个功能卡片添加初始动画状态
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.transitionDelay = `${index * 0.1}s`;
+            
+            observer.observe(card);
+        });
+        
+        // 添加统计数字动画
+        function animateStatistics() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                if (!isNaN(target)) {
+                    animateCount(stat, target);
+                }
+            });
+        }
+        
+        function animateCount(element, target) {
+            let current = 0;
+            const increment = target / 50; // 50帧动画
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 20);
+        }
+        
+        // 当用户滚动到平台优势部分时触发动画
+        const platformSection = document.querySelector('.platform-features');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(animateStatistics, 500);
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        if (platformSection) {
+            sectionObserver.observe(platformSection);
+        }
     </script>
 </body>
 </html>
