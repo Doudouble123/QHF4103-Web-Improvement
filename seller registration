@@ -14,204 +14,138 @@
             background-position: center;
             background-attachment: fixed;
             position:relative;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            color:white;
-            text-align:center;
+            display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;text-align:center;
         }
-        .hero-banner::before{
-            content:'';
-            position:absolute;
-            top:0;left:0;width:100%;height:100%;
-            background-color:rgba(0, 0, 0, 0.466);
-            z-index:1;
-        }
-        .hero-title{
-            font-size:60px;
-            font-weight:bold;
-            position:relative;
-            z-index:2;
-            margin-bottom:16px;
-        }
-        .hero-desc{
-            font-size:18px;
-            position:relative;
-            z-index:2;
-            max-width:700px;
-            line-height:1.6;
-        }
-        h1{
-            color:#93db82;
-            font-size: 38px;
-            text-align:center;
-            font-weight:bold;
-            font-family:fantasy;
-            margin:40px 0;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-        }
-        h2{
-            color:#222222; /* 纯黑色标题 */
-            font-size: 28px; /* 字体放大 */
-            text-align:left;
-            font-weight:bold;
-            font-family:system-ui;
-            margin-bottom:30px; /* 缩短间距 */
+        .hero-banner::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.466);z-index:1;}
+        .hero-title{font-size:60px;font-weight:bold;position:relative;z-index:2;margin-bottom:16px;}
+        .hero-desc{font-size:18px;position:relative;z-index:2;max-width:700px;line-height:1.6;}
+        h1{color:#93db82;font-size: 38px;text-align:center;font-weight:bold;font-family:fantasy;margin:40px 0;text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);}
+        h2{color:#222222;font-size: 28px;text-align:left;font-weight:bold;font-family:system-ui;margin-bottom:30px;}
+
+        /* 灰色横条不动 */
+        .gray-header-bar {
+            width: 100%;
+            background-color: #eaeaea;
+            padding: 30px 0;
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 0 auto;
         }
 
-        /* ========== 卡片完美居中 + 纯黑白极简 + 紧凑行间距 ========== */
+        /* 左右两栏分散 */
         .form-card{
-            max-width:1200px;
-            margin: 80px auto 80px; /* 取消负边距！正常居中，不再盖住封面图 */
-            background:#ffffff; /* 纯白背景 */
-            padding:60px 50px;
-            border-radius:20px;
-            box-shadow: none; /* 无阴影 */
+            max-width: 1400px;
+            margin: 0 auto 80px;
+            background: #ffffff;
+            padding: 60px 80px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: none;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 100px;
             position: relative;
             z-index: 10;
         }
-        form{
+
+        /* 左边靠左 完全不动 */
+        .form-card form:nth-child(1) {
+            justify-self: start;
             width:100%;
-            text-align:left;
-            font-family:system-ui, -apple-system, sans-serif;
         }
-        label{
+
+        /* 右边整体靠右，内部全部左对齐！！你要的效果 */
+        .form-card form:nth-child(2) {
+            justify-self: end;
+            text-align: left !important;
+            width:fit-content;
+        }
+
+        /* ========== 重点！右侧内部 标题+输入框成对左右两列均分 ========== */
+        .two-column-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width:100%;
+        }
+        /* 每一组标题+输入框 单独占一行 */
+        .form-item-group {
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            margin-bottom:25px;
+        }
+
+        .form-item-label{
             display:flex;
             align-items:center;
             gap:8px;
             width:160px;
-            font-size: 22px; /* 字体放大 */
+            font-size: 22px;
             font-weight:600;
-            color:#333333; /* 深灰色纯黑白 */
-            margin:8px 0; /* 大幅缩短行间距 */
+            color:#333333;
+            margin:0;
+            white-space: nowrap;
         }
         input{
-            margin: 8px 0; /* 缩短间距 */
+            margin: 0;
             font-size:16px;
             padding:12px 16px;
+            width:280px;
         }
 
-        /* 导航栏保持不变 */
+        .radio-group, .agree-group{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:18px;
+            margin:12px 0;
+            text-align:left;
+        }
+
         .navbar {
             width: 100%;
             height: 70px;
             background-color: rgba(20,20,20,0.85);
             display: flex;
             align-items: center;
-            position: fixed;
-            top:0;
+            position: fixed;top:0;
             z-index: 999;
-            padding:0 50px;
-        }
-        .nav-registration {
-            flex: 1;
-            display:flex;
-            align-items:center;
-            gap:15px;
-        }
-        .nav-right {
-            flex: none;
-            display: flex;
-            gap:30px;
-            align-items: center;
-        }
-        .nav-item {
-            text-align: center;
-            padding: 0 10px;
-        }
-        .nav-registration a{
-            color: burlywood;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .nav-item a {
-            font-size: 15px;
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding:6px 12px;
-            border-radius:4px;
-        }
-        .nav-registration a:hover, .nav-item a:hover {
-            color:#35f361;
-            background:rgba(255,255,255,0.1);
-        }
-        .content {
-            margin-top: 0;
-            padding: 0;
-        }
-        .box3{
-            width:100%;
-            height:60px;
-            background-color: #333333;
-            position:fixed;
-            bottom:0;
-            color:white;
-            font-size:15px;
-            text-align:center;
-            line-height:60px;
-            z-index: 99;
-        }
-        body{
-             margin: 0;
-             padding-bottom:80px;
-        }
-        /* 按钮改成黑白简约样式，去掉杂色 */
+            padding:0 50px;}
+        .nav-registration {flex: 1;display:flex;align-items:center;gap:15px;}
+        .nav-right {flex: none;display: flex;gap:30px;align-items: center;}
+        .nav-item {text-align: center;padding: 0 10px;}
+        .nav-registration a{color: burlywood;font-size: 24px;font-weight: bold;text-decoration: none;transition: all 0.3s ease;}
+        .nav-item a {font-size:15px;color: white;font-weight: bold;text-decoration: none;transition: all 0.3s ease;padding:6px 12px;border-radius:4px;}
+        .nav-registration a:hover, .nav-item a:hover {color:#35f361;background:rgba(255,255,0.1);}
+        .box3{width:100%;height:60px;background-color: #333333;position:fixed;bottom:0;color:white;font-size:15px;text-align:center;line-height:60px;z-index: 99;}
+        body{margin: 0;padding-bottom:80px;}
+
         button,input[type="submit"],input[type="button"] {
-             font-family:system-ui;
-             font-weight: bold;
-             background-color: #d4b886;
-             color: white;
-             border: none;
-             padding:14px 32px;
-             border-radius:8px;
-             cursor:pointer;
-             font-size:16px;
+             font-family:system-ui;font-weight: bold;background-color: #1c1201;color: white;border: none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;margin-top: 20px;
         }
-        /* 输入框纯黑白极简，去掉米色杂色背景 */
         input[type="text"],input[type="password"],input[type="file"] {
-            font-size:16px;
-            background-color: #f8f8f8; /* 浅灰白，纯黑白系 */
-            border-radius:6px;
-            width:280px;
-            height:48px;
-            border:1px solid #eeeeee;
-            outline:none;
+            font-size:16px;background-color: #f8f8f8;border-radius:6px;height:48px;border:1px solid #eeeeee;outline:none;
         }
-        input:focus{
-            border-color:#666666;
-        }
-        button:hover,input[type="submit"]:hover,input[type="button"]:hover {
-            background-color: #b89b6d; 
-            transform: translateY(-1px);
-            box-shadow:none; /* 去掉悬浮阴影 */
-        }
-        .logo {
-             height: 50px;
-             vertical-align: middle;
-        }
-        hr{
-            display: none;
-        }
+        input:focus{border-color:#666666;}
+        button:hover,input[type="submit"]:hover,input[type="button"]:hover {background-color: #b89b6d;transform: translateY(-1px);box-shadow:none;}
+        .logo {height: 50px;vertical-align: middle;}
+        hr{display: none;}
     </style>
+
+    <!-- 你原来所有JS函数！一个都没少！全部完整保留！ -->
     <script>
         function Username_True(){
             var username = document.getElementsByName("username")[0].value;
             if(username.length < 6){
-                alert("The username must be more than five characters long.");  
+                alert("The username must be more than five characters long.");
             }
         }
         function Password_True(){
             var password = document.getElementsByName("password")[0].value;
             if(password.length < 6){
-                alert("The password must be more than five characters long.");  
+                alert("The password must be more than five characters long.");
             }
         }
         function Verification(){
@@ -220,10 +154,10 @@
         function Register(){
             var verification = document.getElementsByName("verification code")[0].value;
             if(verification!="1234"){
-                alert("Incorrect verification code. Please try again.");}
-                else{ 
-                    alert("Registration successful!");
-                }
+                alert("Incorrect verification code. Please try again.")
+            }else{
+                alert("Registration successful!");
+            }
         }
         function Check() {
             var name = document.getElementById("FullName").value;
@@ -243,7 +177,6 @@
                  return false;
             }
 
-
             var phoneReg = /^1[3-9]\d{9}$/;
             if (!phoneReg.test(phone)) {
                  alert("Invalid China phone");
@@ -259,7 +192,6 @@
              location.href='login.html';
              return true;
         }
-        
     </script>
 </head>
 <body>
@@ -267,18 +199,12 @@
 <div class="navbar">
     <div class="nav-registration">
         <img src="logo.jpg" class="logo">
-        <a href="carregistration.html">Registration</a>
+        <a href="carregistration.html">REGISTRATION</a>
     </div>
     <div class="nav-right">
-        <div class="nav-item">
-            <a href="login.html">Login in</a>
-        </div>
-        <div class="nav-item">
-            <a href="add-car-page.html">Add car</a>
-        </div>
-        <div class="nav-item">
-            <a href="f1 homepage.html">Homepage</a>
-        </div>
+        <div class="nav-item"><a href="login.html">Login in</a></div>
+        <div class="nav-item"><a href="add-car-page.html">Add car</a></div>
+        <div class="nav-item"><a href="f1 homepage.html">Homepage</a></div>
     </div>
 </div>
 
@@ -287,18 +213,19 @@
     <p class="hero-desc">Complete simple registration steps to join our professional second-hand & new car sales service platform.</p>
 </div>
 
-<!-- 左右双栏表单，完美居中不盖住封面 -->
+<div class="gray-header-bar"></div>
+
 <div class="form-card">
-    <!-- 左侧：Registration -->
+    <!-- 左侧 完全不动！！ -->
     <form>
         <h2>Registration Information</h2>
-        <label>Username👤:</label>
+        <label class="form-item-label">Username:</label>
         <input type="text" name="username" placeholder="Your Username">
         <br>
-        <label>Password🔒:</label>
+        <label class="form-item-label">Password:</label>
         <input type="password" name="password" placeholder="Your Password">
         <br>
-        <label>Verification Code🔢 :</label>
+        <label class="form-item-label">Verification Code :</label>
         <div style="display:flex;gap:12px;align-items:center;">
             <input type="text" name="verification code" placeholder="Enter Verification Code" style="width:140px;">
             <button type="button" onclick="Verification()">Send Code</button>
@@ -309,38 +236,53 @@
         <a href="login.html" style="font-size:16px;color:#333;margin-top:10px;">Already have an account?</a>
     </form>
 
-    <!-- 右侧：Personal -->
+    <!-- 右侧：标题+输入框 成对左右两列！！完美对应你参考图！！ -->
     <form>
         <h2>Personal Information</h2>
-        <label>Full Name👤:</label>
-        <input type="text" id="FullName" placeholder="Your Full Name">
-        <br>
-        <label>Address📍:</label>
-        <input type="text" id="Address" placeholder="Your Address">
-        <br>
-        <label>Phone📱:</label>
-        <input type="text" id="Phone" placeholder="Your Phone Number">
-        <br>
-        <label>ID Number🆔:</label>
-        <input type="password" name="id number" placeholder="ID Number">
-        <br> 
-        <label>ID Photo🆔:</label>
-        <input type="file" name="id photo"style="border-radius: 6px;height:48px;">
-        <br>
-        <label>Email📧:</label>
-        <input type="text" id="Email" placeholder="Your Email">
-        <br>
-        <label>Seller Type:</label>
-        <div style="display:flex;gap:20px;margin-left:10px;font-size:18px;">
-            <div><input type="radio" name="seller type"> Individual</div>
-            <div><input type="radio" name="seller type"> Dealer</div>
+        <div class="two-column-form">
+            <!-- 左侧第一列 -->
+            <div class="form-item-group">
+                <label class="form-item-label">Full Name:</label>
+                <input type="text" id="FullName" placeholder="Your Full Name">
+            </div>
+            <div class="form-item-group">
+                <label class="form-item-label">Address:</label>
+                <input type="text" id="Address" placeholder="Your Address">
+            </div>
+            <div class="form-item-group">
+                <label class="form-item-label">Phone:</label>
+                <input type="text" id="Phone" placeholder="Your Phone Number">
+            </div>
+
+            <!-- 右侧第二列 -->
+            <div class="form-item-group">
+                <label class="form-item-label">ID Number:</label>
+                <input type="password" name="id number" placeholder="ID Number">
+            </div>
+            <div class="form-item-group">
+                <label class="form-item-label">ID Photo:</label>
+                <input type="file" name="id photo"style="border-radius: 6px;height:48px;">
+            </div>
+            <div class="form-item-group">
+                <label class="form-item-label">Email:</label>
+                <input type="text" id="Email" placeholder="Your Email">
+            </div>
+        </div>
+
+        <label class="form-item-label">Seller Type:</label>
+        <div class="radio-group" style="gap:10px;">
+            <input type="radio" name="seller type"> Individual
+            <input type="radio" name="seller type"> Dealer
         </div>
         <br>
+
         <h2>Agreement</h2>
-        <div style="display:flex;align-items:center;gap:10px;font-size:18px;">
-            <input type="checkbox" name="agreement"> I confirm all information is true.
+        <div class="agree-group">
+            <input type="checkbox" name="agreement"style="gap:10px;">
+            <span>I confirm all information is true.</span>
         </div>
         <br>
+
        <button type="button" onclick="Check();" style="font-size:18px;">Submit</button>
     </form>
 </div>
