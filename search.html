@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<head>
+    <title>Search Car</title>
+    <style>
+        /* White title fade and drop animation (common for two pages) */
+        @keyframes fadeDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            background-image: url("images/search.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            padding-bottom: 180px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.4);
+                z-index: -2;
+            }
+
+            body::after {
+                content: "";
+                position: fixed;
+                top: 90%;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                background-image: repeating-linear-gradient( -45deg, rgba(0, 255, 157, 0) 0px, rgba(0, 255, 157, 0) 45px, rgba(0, 255, 157, 0.85) 45px, rgba(0, 255, 157, 0.85) 90px );
+                z-index: -1;
+            }
+
+        .box {
+            height: 100px;
+            top: 0px;
+            padding: 0 35px;
+            background-color: rgba(35, 35, 35, 1);
+            position: fixed;
+            right: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 999;
+        }
+
+            .box h1 {
+                color: burlywood;
+                font-family: fantasy;
+                font-size: 38px;
+                margin: 0;
+                letter-spacing: 2px;
+            }
+
+        .logoarea {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+            .logoarea img {
+                width: 55px;
+                height: 55px;
+                object-fit: cover;
+                border-radius: 50%;
+                transform: scale(1.4);
+            }
+
+        .navigationlinks {
+            display: flex;
+            gap: 38px;
+        }
+
+            .navigationlinks a,
+            .navigationlinks a:link,
+            .navigationlinks a:visited {
+                color: white !important;
+                text-decoration: none !important;
+                font-size: 24px;
+            }
+
+                .navigationlinks a:hover {
+                    color: rgba(0, 255, 157, 1) !important;
+                }
+
+        /* —————————— Title Area —————————— */
+        .navigationbar {
+            margin-top: 180px;
+            text-align: center;
+        }
+
+            .navigationbar h1 {
+                color: white;
+                font-size: 5rem;
+                font-weight: 300;
+                margin: 0 0 10px 0;
+                animation: fadeDrop 0.8s ease forwards;
+            }
+
+            .navigationbar p {
+                color: white;
+                font-size: 1.4rem;
+                font-weight: 100;
+                margin: 0 0 50px 0;
+                opacity: 0.95;
+                animation: fadeDrop 0.8s ease 0.2s forwards;
+            }
+        /* —————————— Search Box Move Down —————————— */
+        .search {
+            max-width: 1100px;
+            margin: 300px auto 800px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+            .form-group label {
+                color: white;
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+
+            .form-group select,
+            .form-group input {
+                padding: 14px 12px;
+                border-radius: 6px;
+                border: none;
+                font-size: 1rem;
+                background: rgba(255, 255, 255, 0.8);
+                color: #333;
+            }
+
+        .button {
+            align-self: flex-end;
+        }
+
+        .searchBtn {
+            background: rgba(0,255,157,0.95);
+            color: white;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* ==================== Today's Recommendation Final Version ==================== */
+        .recommend-section {
+            max-width: 1100px;
+            margin: -600px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 50;
+        }
+
+        .recommend-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .recommend-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .recommend-main {
+            grid-row: span 2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .recommend-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .car-card {
+            position: relative;
+            width: 100%;
+            height: 360px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+            .car-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+
+            .car-card::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to top, #000 0%, transparent 60%);
+                z-index: 2;
+            }
+
+        .car-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 30px;
+            color: white;
+            z-index: 3;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+            .car-info p {
+                margin: 6px 0;
+                font-size: 1rem;
+            }
+
+        .price {
+            font-size: 1.4rem;
+            color: #00ff9d;
+            font-weight: bold;
+        }
+
+        .detail-btn {
+            display: inline-block;
+            margin-top: 12px;
+            color: #00ff9d;
+            background: rgba(0,255,157,0.15);
+            border: 1px solid #00ff9d;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        /* ========== Prompt Box Below Left Car ========== */
+        .note-box {
+            border: 1.5px solid #ffffff;
+            border-radius: 8px;
+            padding: 16px 20px;
+            opacity: 0;
+            animation: noteFadeIn 1s ease 1.2s forwards;
+        }
+
+        @keyframes noteFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .note-text {
+            color: white;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ==============================================
+            New 1: Car Expert Recommendation Module (Matching Customer Case Style)
+        ============================================== */
+        .expert-section {
+            max-width: 1100px;
+            margin: 120px auto 80px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .expert-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin: 0 0 40px;
+        }
+
+        .expert-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .expert-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Expert Avatar + Hover Zoom Effect */
+        .expert-avatar {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+            .expert-avatar:hover {
+                transform: scale(1.18); /* Zoom on hover */
+            }
+
+        .expert-name {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .expert-brief {
+            margin-top: 40px;
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* ==============================================
+            New 2: Offline Cooperative Stores Module (1:1 Matching Reference Image Left Vertical Layout)
+        ============================================== */
+        .shop-section {
+            max-width: 1100px;
+            margin: 120px auto;
+            padding: 40px 20px;
+            /* City Background Image */
+            background-image: url("images/city-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+            /* Dark Background Mask to Ensure Text Clarity */
+            .shop-section::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.55);
+                border-radius: 12px;
+                z-index: 1;
+            }
+
+        .shop-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .shop-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 10px;
+        }
+
+        .shop-subtitle {
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 40px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Core Layout: Left-Right Layout (Left Vertical Stores + Right Search Box) */
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Left Vertical Store List (1:1 Matching Reference Image) */
+        .shop-left-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .shop-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+            .shop-card img {
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+                display: block;
+            }
+
+        .shop-card-info {
+            padding: 12px;
+            color: #222;
+        }
+
+            .shop-card-info h4 {
+                margin: 0 0 4px;
+                font-size: 1.05rem;
+            }
+
+            .shop-card-info p {
+                margin: 0;
+                font-size: 0.9rem;
+                color: #555;
+            }
+
+        /* Right Area: City Search Box */
+        .shop-right-area {
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .city-search-box {
+            display: flex;
+            gap: 8px;
+        }
+
+            .city-search-box input {
+                padding: 12px 16px;
+                width: 320px;
+                border-radius: 8px;
+                border: none;
+                font-size: 1rem;
+            }
+
+            .city-search-box button {
+                padding: 12px 20px;
+                background: rgba(0, 255, 157, 0.95);
+                color: #000;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="box">
+            <div class="logoarea">
+                <img src="images/logo.jpg">
+                <h1>CAR SALE PLATFORM</h1>
+            </div>
+            <div class="navigationlinks">
+                <a href="f1 homepage.html">homepage</a>
+                <a href="search.html">search car</a>
+                <a href="login.html">log in</a>
+                <a href="carregistration.html">sign in</a>
+                <a href="add-car-page.html">add car</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="navigationbar">
+        <h1>Find the Best Car</h1>
+        <p>Direct sale of first-hand vehicles, no extra profit from middlemen.</p>
+    </div>
+
+    <div class="search" id="search">
+        <div class="form-group">
+            <label>Car Type</label>
+            <select id="cartype">
+                <option value="">All</option>
+                <option value="sedan">Sedan</option>
+                <option value="suv">SUV</option>
+                <option value="truck">Truck</option>
+                <option value="sports">Sports</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Min Price</label>
+            <input type="number" id="minprice">
+        </div>
+
+        <div class="form-group">
+            <label>Year</label>
+            <input type="text" id="maxprice" placeholder="ex：2020">
+        </div>
+
+        <div class="button">
+            <button class="searchBtn" onclick="searchCars()">Search</button>
+        </div>
+    </div>
+
+    <!-- Today's Used Car Recommendation -->
+    <div class="recommend-section">
+        <h2 class="recommend-title">Today's Used Car Recommendations</h2>
+        <div class="recommend-layout">
+
+            <!-- Left Large Card + Bottom Prompt Box -->
+            <div class="recommend-main">
+                <div class="car-card">
+                    <img src="images/sedan.jpg">
+                    <div class="car-info">
+                        <p>Model: sedan</p>
+                        <p>Year: 2024</p>
+                        <p>Color: red</p>
+                        <p class="price">10000000</p>
+                        <p>Location: Wuhan</p>
+                        <a href="car-detail.html?carindex=0" class="detail-btn">More details</a>
+                    </div>
+                </div>
+
+                <!-- Prompt Box: Directly Below Left Car -->
+                <div class="note-box">
+                    <p class="note-text">
+                        All listed cars are posted for FREE on our platform with NO advertising fees.<br>
+                        If you want to get recommended on the homepage, please send your request to:<br>
+                        1298751101@qq.com
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Two Small Cards -->
+            <div class="recommend-side">
+                <div class="car-card">
+                    <img src="images/suv.jpg">
+                    <div class="car-info">
+                        <p>Model: suv</p>
+                        <p>Year: 2025</p>
+                        <p class="price">666666</p>
+                        <a href="car-detail.html?carindex=1" class="detail-btn">More details</a>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <img src="images/truck.jpg">
+                    <div class="car-info">
+                        <p>Model: truck</p>
+                        <p>Year: 2026</p>
+                        <p class="price">888888</p>
+                        <a href="car-detail.html?carindex=2" class="detail-btn">More details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==============================================
+        New: Car Expert Recommendation Module (Below Today's Recommendation)
+    ============================================== -->
+    <div class="expert-section">
+        <h2 class="expert-title">Professional Car Experts</h2>
+        <div class="expert-list">
+            <div class="expert-item">
+                <img src="images/expert1.jpg" class="expert-avatar">
+                <p class="expert-name">Expert Alex</p>
+            </div>
+            <div class="expert-item">
+                <img src="images/expert2.jpg" class="expert-avatar">
+                <p class="expert-name">Expert Lily</p>
+            </div>
+            <div class="expert-item">
+                <img src="images/expert3.jpg" class="expert-avatar">
+                <p class="expert-name">Expert Jack</p>
+            </div>
+        </div>
+        <p class="expert-brief">
+            24H FREE Consultation | Used Car Quality Identification & Professional Vehicle Recommendation
+        </p>
+    </div>
+
+    <!-- ==============================================
+        New: Offline Cooperative Stores Module (Below Expert Section, Left Vertical Store Layout)
+    ============================================== -->
+    <div class="shop-section">
+        <div class="shop-container">
+            <h2 class="shop-title">Offline Cooperative Stores</h2>
+            <p class="shop-subtitle">On-site professional consultation, vehicle inspection and maintenance service</p>
+
+            <div class="shop-layout">
+                <!-- Left: 3 Cooperative Stores in Vertical Layout (1:1 Matching Reference Image) -->
+                <div class="shop-left-list" id="shopList">
+                    <div class="shop-card">
+                        <img src="images/shop1.jpg">
+                        <div class="shop-card-info">
+                            <h4>London Store 1</h4>
+                            <p>120+ Car Listings</p>
+                        </div>
+                    </div>
+                    <div class="shop-card">
+                        <img src="images/shop2.jpg">
+                        <div class="shop-card-info">
+                            <h4>London Store 2</h4>
+                            <p>120+ Car Listings</p>
+                        </div>
+                    </div>
+                    <div class="shop-card">
+                        <img src="images/shop3.jpg">
+                        <div class="shop-card-info">
+                            <h4>London Store 3</h4>
+                            <p>120+ Car Listings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: City Search Box -->
+                <div class="shop-right-area">
+                    <div class="city-search-box">
+                        <input type="text" id="cityInput" placeholder="Enter your city">
+                        <button onclick="searchShop()">Search Nearby Stores</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="show" id="show"></div>
+
+    <!-- Original JS + New Store Search JS -->
+    <script src="js/search.js"></script>
+    <script>
+        // Offline Store City Search Function
+        function searchShop() {
+            const city = document.getElementById("cityInput").value.trim().toLowerCase();
+            const shopList = document.getElementById("shopList");
+
+            // Only London Matches to Show Stores, No Results for Other Cities
+            if (city === "london") {
+                shopList.innerHTML = `
+                            <div class="shop-card">
+                                <img src="images/shop1.jpg">
+                                <div class="shop-card-info">
+                                    <h4>London Store 1</h4>
+                                    <p>120+ Car Listings</p>
+                                </div>
+                            </div>
+                            <div class="shop-card">
+                                <img src="images/shop2.jpg">
+                                <div class="shop-card-info">
+                                    <h4>London Store 2</h4>
+                                    <p>120+ Car Listings</p>
+                                </div>
+                            </div>
+                            <div class="shop-card">
+                                <img src="images/shop3.jpg">
+                                <div class="shop-card-info">
+                                    <h4>London Store 3</h4>
+                                    <p>120+ Car Listings</p>
+                                </div>
+                            </div>
+                        `;
+            } else {
+                shopList.innerHTML = `<p style="color:white; padding:10px;">No cooperative store in this city</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
