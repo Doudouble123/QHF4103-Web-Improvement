@@ -407,6 +407,17 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
             border-radius: 30px;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .intro-logo {
+            width: 80px;
+            height: auto;
+            flex-shrink: 0;
+        }
+        .intro-text {
+            flex: 1;
         }
         .intro h2 {
             font-size: 2rem;
@@ -469,6 +480,9 @@
             .intro {
                 margin: 30px 20px;
                 padding: 30px 25px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
             }
             .brand-item img {
                 width: 110px;
@@ -654,10 +668,13 @@
 </div>
 
 <div class="intro">
-    <h2><i class="fas fa-globe"></i> Welcome to a professional vehicle sharing platform</h2>
-    <p>Here, you can easily list your cars for sale and browse high-quality second-hand vehicles to find your dream car.</p>
-    <p>Whether you are looking for a family car, a sports car, or an SUV, join us now and experience the future of online car shopping!</p>
-    <div style="margin-top: 18px;"><i class="fas fa-chart-line"></i> Real-time inventory + Reliable protection</div>
+    <img src="LOGO.png" class="intro-logo" alt="Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2745%27 fill=%27%23e6b422%27/%3E%3Ctext x=%2730%27 y=%2765%27 fill=%27black%27 font-size=%2740%27%3EV%3C/text%3E%3C/svg%3E'">
+    <div class="intro-text">
+        <h2><i class="fas fa-globe"></i> Welcome to a professional vehicle sharing platform</h2>
+        <p>Here, you can easily list your cars for sale and browse high-quality second-hand vehicles to find your dream car.</p>
+        <p>Whether you are looking for a family car, a sports car, or an SUV, join us now and experience the future of online car shopping!</p>
+        <div style="margin-top: 18px;"><i class="fas fa-chart-line"></i> Real-time inventory + Reliable protection</div>
+    </div>
 </div>
 
 <div class="final">
@@ -670,7 +687,7 @@
 <!-- 最底部炫酷小车 -->
 <svg class="cool-car" id="colorCar" viewBox="0 0 100 40">
     <path d="M10 25 Q15 15 35 15 H65 Q85 15 90 25 L92 32 H8 L10 25Z" fill="currentColor"></path>
-    <rect x="20" y="15" width="60" height="10" rx="2" fill="rgba(255,255,255,0.2)"></rect>
+    <rect x="20" y="15" width="60" height="10" rx="2" fill="rgba(255,255,250.2)"></rect>
     <circle cx="25" cy="32" r="8" fill="#222"></circle>
     <circle cx="75" cy="32" r="8" fill="#222"></circle>
     <circle cx="25" cy="32" r="4" fill="#555"></circle>
