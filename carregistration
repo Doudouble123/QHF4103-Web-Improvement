@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Seller Registration Page</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        .hero-banner{
+            width:100%;
+            height:700px;
+            background-image: url("greencar.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position:relative;
+            display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;text-align:center;
+        }
+        .hero-banner::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.466);z-index:1;}
+        .hero-title{font-size:60px;font-weight:bold;position:relative;z-index:2;margin-bottom:16px;}
+        .hero-desc{font-size:18px;position:relative;z-index:2;max-width:700px;line-height:1.6;}
+        h1{color:#89f0a1;font-size: 38px;text-align:center;font-weight:bold;font-family:fantasy;margin:40px 0;text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);}
+        h2{color:#222222;font-size: 28px;text-align:left;font-weight:bold;font-family:system-ui;margin-bottom:30px;}
+
+        .gray-header-bar {
+            width: 100%;
+            background-color: #eaeaea;
+            padding: 30px 0;
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .stats-section {
+            max-width: 1400px;
+            margin: 5rem auto 5rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .stat-card {
+            background: rgba(245, 245, 245, 0.85);
+            border-radius: 12px;
+            padding: 45px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .stat-card:hover {
+            transform: scale(1.05);
+            background: rgba(230, 230, 230, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .stat-icon-circle {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(87, 86, 86, 1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -35px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-icon-circle {
+            background-color: rgba(65, 64, 64, 1);
+        }
+        .stat-icon-circle svg {
+            width: 32px;
+            height: 32px;
+            fill: burlywood;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-icon-circle svg {
+            fill: rgba(0, 255, 157, 1);
+        }
+        .stat-number {
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #333;
+            margin: 10px 0 8px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-number {
+            color: rgba(87, 86, 86, 1);
+        }
+        .stat-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin: 0;
+            text-transform: capitalize;
+        }
+
+        .car-gallery-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 5%;
+        }
+        .car-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        .car-item {
+            position: relative;
+            perspective: 1000px;
+        }
+        .car-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.25));
+            transform: rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+        .car-item:hover img {
+            transform: rotateX(0deg) scale(1.08);
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
+        }
+        .car-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 16px;
+            color: #555;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .car-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 全局背景 */
+        body {
+            position: relative;
+        }
+        .bg-side-left,
+        .bg-side-right {
+            position: fixed;
+            top: 0;
+            width: 12%;
+            height: 100%;
+            z-index: -99;
+            opacity: 0.22;
+            filter: blur(6px);
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-side-left {
+            left: 0;
+            background-image: url("background1.png");
+        }
+        .bg-side-right {
+            right: 0;
+            background-image: url("background2.png");
+        }
+
+        /* ========== 表单核心修复 ========== */
+        .contact-form-section {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 5%;
+            position: relative;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            padding: 60px 80px;
+        }
+        .contact-form-section h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .form-three-column {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        .form-three-column.col2 {
+            grid-template-columns: 1fr 1fr;
+        }
+        .form-three-column.col3 {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .form-full-column {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+        .form-item-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 22px;
+            color: #333;
+            font-weight: normal;
+            white-space: nowrap;
+        }
+        .form-item input {
+            border: none;
+            border-bottom: 1px solid #dddddd;
+            background: transparent;
+            padding: 10px 0;
+            font-size: 20px;
+            color: #666;
+            outline: none;
+            width: 100%;
+        }
+        .verify-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .radio-group, .agree-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+        }
+        button {
+            font-family:system-ui;
+            font-weight: bold;
+            background-color: #1c1201;
+            color: white;
+            border: none;
+            padding:14px 32px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+            margin-top: 20px;
+        }
+
+        /* 导航 */
+        .navbar {
+            width: 100%;
+            height: 70px;
+            background-color: rgba(87, 86, 86, 0.915);
+            display: flex;
+            align-items: center;
+            position: fixed;top:0;
+            z-index: 999;
+            padding:0 50px;
+        }
+        .nav-registration {flex: 1;display:flex;align-items:center;gap:15px;}
+        .nav-right {flex: none;display: flex;gap:30px;align-items: center;}
+        .nav-item {text-align: center;padding: 0 10px;}
+        .nav-registration a{color: burlywood;font-size: 24px;font-weight: bold;text-decoration: none;transition: all 0.3s ease;}
+        .nav-item a {font-size:15px;color: white;font-weight: bold;text-decoration: none;transition: all 0.3s ease;padding:6px 12px;border-radius:4px;}
+        .nav-registration a:hover, .nav-item a:hover {color:#35f361;background:rgba(255,255,0,0.1);}
+        .box3{width:100%;height:60px;background-color: rgba(87, 86, 86, 0.915);position:fixed;bottom:0;color:white;font-size:15px;text-align:center;line-height:60px;z-index: 99;}
+        body{margin: 0;padding-bottom:80px;padding-top:70px;}
+        .logo {height: 50px;vertical-align: middle;}
+        hr{display: none;}
+    </style>
+</head>
+<body>
+
+<div class="bg-side-left"></div>
+<div class="bg-side-right"></div>
+
+<div class="navbar">
+    <div class="nav-registration">
+        <img src="logo.jpg" class="logo">
+        <a href="carregistration.html" >REGISTRATION</a>
+    </div>
+    <div class="nav-right">
+        <div class="nav-item"><a href="login.html">Login in</a></div>
+        <div class="nav-item"><a href="add-car-page.html">Add car</a></div>
+        <div class="nav-item"><a href="f1 homepage.html">Homepage</a></div>
+    </div>
+</div>
+
+<div class="hero-banner">
+    <h1 class="hero-title">Become A Certified Car Seller</h1>
+    <p class="hero-desc">Complete simple registration steps to join our professional second-hand & new car sales service platform.</p>
+</div>
+
+<div class="gray-header-bar"></div>
+
+<div class="stats-section">
+    <div class="stat-card">
+       <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+    </svg>
+</div>
+        <div class="stat-number">232</div>
+        <div class="stat-text">Trusted Clients</div>
+    </div>
+    <div class="stat-card">
+       <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13c-.55 0-1 .45-1 1v4l3.25 3.25c.49.49 1.28.49 1.77 0 .49-.49.49-1.28 0-1.77L13 11.5V8c0-.55-.45-1-1-1z"></path>
+    </svg>
+</div>
+        <div class="stat-number">9</div>
+        <div class="stat-text">Years Of Experience</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l1.49,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l1.49-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32C21.37,13.35,21.32,13.08,19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"></path>
+    </svg>
+</div>
+        <div class="stat-number">3211</div>
+        <div class="stat-text">Cars Repaired</div>
+    </div>
+    <div class="stat-card">
+       <div class="stat-icon-circle">
+    <svg viewBox="0 0 24 24">
+        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66,5 16,5c-1.66,0-3,1.34-3,3s1.34,3,3,3zm-8,0c1.66,0,2.99-1.34,2.99-3S9.66,5,8,5C6.34,5,5,6.34,5,8s1.34,3,3,3zm5.39,6.49c0-2.19-3.59-3.3-5.39-3.3s-5.39,1.11-5.39,3.3V19h10.78V17.49zM17,13c2.67,0,8,1.34,8,4v2h-6v-2c0-2.66,5.33-4,8-4z"></path>
+    </svg>
+</div>
+        <div class="stat-number">18</div>
+        <div class="stat-text">Qualified Technicians</div>
+    </div>
+</div>
+
+<!-- 注册表单 -->
+<div class="contact-form-section">
+    <h2 style="font-size:40px;font-family:fantasy;">Registration</h2>
+
+    <div class="form-three-column col2">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
+                Username:
+            </label>
+            <input type="text" name="username" placeholder="Your Username">
+        </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
+                Password:
+            </label>
+            <input type="password" name="password" placeholder="Your Password">
+        </div>
+    </div>
+
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 1.06-.88 1.79-2.6 1.79-2.05 0-2.87-1.23-2.96-2.01H7.35c.1 1.17.93 2.13 2.62 2.53V19h2.33v-1.66c1.52-.29 2.72-1.16 2.73-2.77 0-1.78-1.55-2.5-3.03-2.97z"/></svg>
+                Verification Code :
+            </label>
+            <div class="verify-row">
+               <input type="text" name="verification code" placeholder="Enter Verification Code">
+                <button type="button" onclick="Verification()">Send Code</button>
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+<div class="car-gallery-section">
+    <div class="car-gallery">
+        <div class="car-item">
+            <img src="car1.png" alt="Car 1">
+            <div class="car-caption">Volkswagen Santanan</div>
+        </div>
+        <div class="car-item">
+            <img src="car2.png" alt="Car 2">
+            <div class="car-caption">Porsche 911 GT3 RS</div>
+        </div>
+        <div class="car-item">
+            <img src="car3.png" alt="Car 3">
+            <div class="car-caption">Mercedes-Benz S-Class</div>
+        </div>
+        <div class="car-item">
+            <img src="car4.png" alt="Car 4">
+            <div class="car-caption">Ferrari 488 Pista</div>
+        </div>
+    </div>
+</div>
+
+     <h2 style="font-size:40px;font-family:fantasy;">Get in Touch</h2>
+     
+    <div class="form-three-column col3">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+                Name
+            </label>
+            <input type="text" id="FullName" placeholder="Your Full Name">
+        </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.2c.28-.28.36-.67.25-1.02C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"></path></svg>
+                Phone
+            </label>
+            <input type="text" id="Phone" placeholder="Your Phone Number">
+        </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                E-mail
+            </label>
+            <input type="text" id="Email" placeholder="Your Email">
+        </div>
+    </div>
+
+    <div class="form-full-column">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Address
+            </label>
+            <input type="text" id="Address" placeholder="Your Address">
+        </div>
+    </div>
+
+    <div class="form-three-column col2" style="margin-top:30px;">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
+                ID Number:
+            </label>
+            <input type="password" name="id number" placeholder="ID Number">
+        </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                ID Photo:
+            </label>
+            <input type="file" name="id photo">
+        </div>
+    </div>
+
+        <div class="form-full-column">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                Seller Type:
+            </label>
+            <div class="radio-group">
+                <input type="radio" name="seller type"> Individual
+                <input type="radio" name="seller type"> Dealer
+            </div>
+        </div>
+        <br><br>
+
+        <div class="form-full-column">
+            <label class="form-item-label"><b>
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM10 17l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                Agreement:</b>
+            </label>
+            <div class="agree-group">
+                <input type="checkbox" name="agreement">
+                <span>I confirm all information is true.</span>
+            </div>
+        </div>
+
+        <button type="button">Submit</button>
+        <br>
+        <a href="login.html" style="font-size:16px;color:#333;margin-top:10px;">Already have an account?</a>
+</div>
+
+<div class="box3">Any Problem? Contact Us! 3024579532@qq.com</div>
+
+<script>
+    function Username_True(){}
+    function Password_True(){}
+    function Verification(){alert("Code sent!")}
+    function Check(){return true}
+</script>
+</body>
+</html>
