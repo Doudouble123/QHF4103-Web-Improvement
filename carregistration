@@ -19,10 +19,9 @@
         .hero-banner::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0, 0, 0, 0.466);z-index:1;}
         .hero-title{font-size:60px;font-weight:bold;position:relative;z-index:2;margin-bottom:16px;}
         .hero-desc{font-size:18px;position:relative;z-index:2;max-width:700px;line-height:1.6;}
-        h1{color:#93db82;font-size: 38px;text-align:center;font-weight:bold;font-family:fantasy;margin:40px 0;text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);}
+        h1{color:#89f0a1;font-size: 38px;text-align:center;font-weight:bold;font-family:fantasy;margin:40px 0;text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);}
         h2{color:#222222;font-size: 28px;text-align:left;font-weight:bold;font-family:system-ui;margin-bottom:30px;}
 
-        /* 灰色横条不动 */
         .gray-header-bar {
             width: 100%;
             background-color: #eaeaea;
@@ -34,99 +33,145 @@
             margin: 0 auto;
         }
 
-/* ====================== 【新增：底部数据统计模块 完整代码】====================== */
- /* 整体外层容器，放在页面最底部 */
- .stats-section {
-     max-width: 1400px;
-     margin: 5rem auto 5rem;
-     padding: 0 2rem;
-     display: grid;
-     /* 四列均等自适应布局，完美还原参考图排版 */
-     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-     gap: 30px;
- }
+        .stats-section {
+            max-width: 1400px;
+            margin: 5rem auto 5rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .stat-card {
+            background: rgba(245, 245, 245, 0.85);
+            border-radius: 12px;
+            padding: 45px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .stat-card:hover {
+            transform: scale(1.05);
+            background: rgba(230, 230, 230, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .stat-icon-circle {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(87, 86, 86, 1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -35px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-icon-circle {
+            background-color: rgba(65, 64, 64, 1);
+        }
+        .stat-icon-circle svg {
+            width: 32px;
+            height: 32px;
+            fill: burlywood;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-icon-circle svg {
+            fill: rgba(0, 255, 157, 1);
+        }
+        .stat-number {
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #333;
+            margin: 10px 0 8px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover .stat-number {
+            color: rgba(87, 86, 86, 1);
+        }
+        .stat-text {
+            font-size: 1.1rem;
+            color: #555;
+            margin: 0;
+            text-transform: capitalize;
+        }
 
- /* 单个数据卡片 */
- .stat-card {
-     background: rgba(245, 245, 245, 0.85);
-     border-radius: 12px;
-     padding: 45px 20px 30px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     position: relative;
-     /* 你要求的：鼠标悬停动画 放大+背景变色 */
-     transition: all 0.3s ease;
-     cursor: default;
- }
-
- /* 卡片hover动效：轻微放大 + 背景加深变色 */
- .stat-card:hover {
-     transform: scale(1.05);
-     background: rgba(230, 230, 230, 0.95);
-     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
- }
-
- /* 顶部圆形图标容器，复用网站原生深灰色 */
- .stat-icon-circle {
-     width: 70px;
-     height: 70px;
-     background-color: rgba(87, 86, 86, 1);
-     border-radius: 50%;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     position: absolute;
-     top: -35px; /* 悬浮在卡片上方，和参考图位置完全一致 */
-     transition: all 0.3s ease;
- }
-
- /* hover时图标圈同步变色，联动动画 */
- .stat-card:hover .stat-icon-circle {
-     background-color: rgba(65, 64, 64, 1);
- }
-
- /* 图标内部svg，原生矢量图标，无需额外图片文件 */
- .stat-icon-circle svg {
-     width: 32px;
-     height: 32px;
-     fill: burlywood; /* 图标颜色复用你网站logo原生burlywood木色，全站统一 */
-     transition: all 0.3s ease;
- }
-
- /* hover图标颜色联动高亮 */
- .stat-card:hover .stat-icon-circle svg {
-     fill: rgba(0, 255, 157, 1); /* 复用网站按钮高亮色 */
- }
-
- /* 大数字样式 */
- .stat-number {
-     font-size: 3.2rem;
-     font-weight: 600;
-     color: #333;
-     margin: 10px 0 8px;
-     transition: all 0.3s ease;
- }
-
- /* hover数字同步变色 */
- .stat-card:hover .stat-number {
-     color: rgba(87, 86, 86, 1);
- }
-
- /* 底部描述文字 */
- .stat-text {
-     font-size: 1.1rem;
-     color: #555;
-     margin: 0;
-     text-transform: capitalize;
- }
- /* ======================== */
-
-        /* ========== 表单下划线样式完全不动 ========== */
-        .contact-form-section {
+        .car-gallery-section {
             max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 5%;
+        }
+        .car-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        .car-item {
+            position: relative;
+            perspective: 1000px;
+        }
+        .car-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.25));
+            transform: rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+        .car-item:hover img {
+            transform: rotateX(0deg) scale(1.08);
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
+        }
+        .car-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 16px;
+            color: #555;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .car-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 全局背景 */
+        body {
+            position: relative;
+        }
+        .bg-side-left,
+        .bg-side-right {
+            position: fixed;
+            top: 0;
+            width: 12%;
+            height: 100%;
+            z-index: -99;
+            opacity: 0.22;
+            filter: blur(6px);
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-side-left {
+            left: 0;
+            background-image: url("background1.png");
+        }
+        .bg-side-right {
+            right: 0;
+            background-image: url("background2.png");
+        }
+
+        /* ========== 表单核心修复 ========== */
+        .contact-form-section {
+            max-width: 1400px;
             margin: 80px auto;
             padding: 0 5%;
+            position: relative;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            padding: 60px 80px;
         }
         .contact-form-section h2 {
             font-size: 32px;
@@ -135,9 +180,15 @@
         }
         .form-three-column {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 30px;
+            width: 100%;
+        }
+        .form-three-column.col2 {
+            grid-template-columns: 1fr 1fr;
+        }
+        .form-three-column.col3 {
+            grid-template-columns: 1fr 1fr 1fr;
         }
         .form-full-column {
             width: 100%;
@@ -147,38 +198,53 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            width: 100%;
         }
         .form-item-label {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 24px;
+            font-size: 22px;
             color: #333;
             font-weight: normal;
+            white-space: nowrap;
         }
-        .form-item input,
-        .form-item textarea {
+        .form-item input {
             border: none;
             border-bottom: 1px solid #dddddd;
             background: transparent;
             padding: 10px 0;
-            font-size: 22px;
+            font-size: 20px;
             color: #666;
             outline: none;
-            width:100%;
-        }
-        .form-item input::placeholder,
-        .form-item textarea::placeholder {
-            color: #999;
-            font-size: 22px;
+            width: 100%;
         }
         .verify-row {
-            display:flex;
-            align-items:flex-end;
-            gap:15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .radio-group, .agree-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+        }
+        button {
+            font-family:system-ui;
+            font-weight: bold;
+            background-color: #1c1201;
+            color: white;
+            border: none;
+            padding:14px 32px;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+            margin-top: 20px;
         }
 
-        /* 导航栏全部不动 */
+        /* 导航 */
         .navbar {
             width: 100%;
             height: 70px;
@@ -187,87 +253,24 @@
             align-items: center;
             position: fixed;top:0;
             z-index: 999;
-            padding:0 50px;}
+            padding:0 50px;
+        }
         .nav-registration {flex: 1;display:flex;align-items:center;gap:15px;}
         .nav-right {flex: none;display: flex;gap:30px;align-items: center;}
         .nav-item {text-align: center;padding: 0 10px;}
         .nav-registration a{color: burlywood;font-size: 24px;font-weight: bold;text-decoration: none;transition: all 0.3s ease;}
         .nav-item a {font-size:15px;color: white;font-weight: bold;text-decoration: none;transition: all 0.3s ease;padding:6px 12px;border-radius:4px;}
-        .nav-registration a:hover, .nav-item a:hover {color:#35f361;background:rgba(255,255,0.1);}
+        .nav-registration a:hover, .nav-item a:hover {color:#35f361;background:rgba(255,255,0,0.1);}
         .box3{width:100%;height:60px;background-color: rgba(87, 86, 86, 0.915);position:fixed;bottom:0;color:white;font-size:15px;text-align:center;line-height:60px;z-index: 99;}
         body{margin: 0;padding-bottom:80px;padding-top:70px;}
-
-        button,input[type="submit"],input[type="button"] {
-             font-family:system-ui;font-weight: bold;background-color: #1c1201;color: white;border: none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;margin-top: 20px;
-        }
-        input:focus{border-color:#666666;}
-        button:hover,input[type="submit"]:hover,input[type="button"]:hover {background-color: #b89b6d;transform: translateY(-1px);box-shadow:none;}
         .logo {height: 50px;vertical-align: middle;}
         hr{display: none;}
-        .radio-group,.agree-group{display:flex;align-items:center;gap:12px;font-size:18px;margin:12px 0;text-align:left;}
     </style>
-
-    <!-- JS全部原样不动 -->
-    <script>
-        function Username_True(){
-            var username = document.getElementsByName("username")[0].value;
-            if(username.length < 6){
-                alert("The username must be more than five characters long.");
-            }
-        }
-        function Password_True(){
-            var password = document.getElementsByName("password")[0].value;
-            if(password.length < 6){
-                alert("The password must be more than five characters long.");
-            }
-        }
-        function Verification(){
-            alert("Verification code sent to your contact information!");
-        }
-        function Register(){
-            var verification = document.getElementsByName("verification code")[0].value;
-            if(verification!="1234"){
-                alert("Incorrect verification code. Please try again.")
-            }else{
-                alert("Registration successful!");
-            }
-        }
-        function Check() {
-            var name = document.getElementById("FullName").value;
-            var address = document.getElementById("Address").value;
-            var phone = document.getElementById("Phone").value;
-            var email = document.getElementById("Email").value;
-
-            var nameReg = /^[a-zA-Z ]+$/;
-            if (!nameReg.test(name)) {
-                 alert("Name: letters only");
-                 return false;
-            }
-
-            var addrReg = /^[a-zA-Z0-9 ]+$/;
-            if (!addrReg.test(address)) {
-                 alert("Address: alphanumeric only");
-                 return false;
-            }
-
-            var phoneReg = /^1[3-9]\d{9}$/;
-            if (!phoneReg.test(phone)) {
-                 alert("Invalid China phone");
-                 return false;
-            }
-
-            var emailReg = /^[^@]+@[^@]+\.(com|cn)$/;
-             if (!emailReg.test(email)) {
-                 alert("Email: one @, end with .com/.cn");
-                 return false;
-            }
-             alert('Submit Successfully!');
-             location.href='login.html';
-             return true;
-        }
-    </script>
 </head>
 <body>
+
+<div class="bg-side-left"></div>
+<div class="bg-side-right"></div>
 
 <div class="navbar">
     <div class="nav-registration">
@@ -288,7 +291,6 @@
 
 <div class="gray-header-bar"></div>
 
-<!-- 数据卡片（保留你要的悬浮效果 + 图标颜色） -->
 <div class="stats-section">
     <div class="stat-card">
        <div class="stat-icon-circle">
@@ -328,13 +330,12 @@
     </div>
 </div>
 
-<!-- 注册表单 完全没动 -->
+<!-- 注册表单 -->
 <div class="contact-form-section">
     <h2 style="font-size:40px;font-family:fantasy;">Registration</h2>
 
-    <!-- 用户名 + 密码 一行并排 + 中间竖线 -->
-    <div class="form-three-column" style="grid-template-columns: 1fr 1fr; gap:40px;">
-        <div class="form-item" style="padding-right:160px; border-right:1px solid #ddd;">
+    <div class="form-three-column col2">
+        <div class="form-item">
             <label class="form-item-label">
                 <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
                 Username:
@@ -358,15 +359,37 @@
                 Verification Code :
             </label>
             <div class="verify-row">
-               <input type="text" name="verification code" placeholder="Enter Verification Code" style="width: 250px;">
+               <input type="text" name="verification code" placeholder="Enter Verification Code">
                 <button type="button" onclick="Verification()">Send Code</button>
             </div>
         </div>
     </div>
     <br><br>
-     <h2 style="font-size:40px;font-family:fantasy;">Get in Touch
-     </h2>
-    <div class="form-three-column">
+
+<div class="car-gallery-section">
+    <div class="car-gallery">
+        <div class="car-item">
+            <img src="car1.png" alt="Car 1">
+            <div class="car-caption">Volkswagen Santanan</div>
+        </div>
+        <div class="car-item">
+            <img src="car2.png" alt="Car 2">
+            <div class="car-caption">Porsche 911 GT3 RS</div>
+        </div>
+        <div class="car-item">
+            <img src="car3.png" alt="Car 3">
+            <div class="car-caption">Mercedes-Benz S-Class</div>
+        </div>
+        <div class="car-item">
+            <img src="car4.png" alt="Car 4">
+            <div class="car-caption">Ferrari 488 Pista</div>
+        </div>
+    </div>
+</div>
+
+     <h2 style="font-size:40px;font-family:fantasy;">Get in Touch</h2>
+     
+    <div class="form-three-column col3">
         <div class="form-item">
             <label class="form-item-label">
                 <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
@@ -401,26 +424,24 @@
             <input type="text" id="Address" placeholder="Your Address">
         </div>
     </div>
-    <div style="margin-top:30px;">
-        <!-- ID号码 + 证件照片 一行并排 -->
-<div class="form-three-column">
-    <div class="form-item">
-        <label class="form-item-label">
-            <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
-            ID Number:
-        </label>
-        <input type="password" name="id number" placeholder="ID Number">
-    </div>
 
-    <div class="form-item">
-        <label class="form-item-label">
-            <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-            ID Photo:
-        </label>
-        <input type="file" name="id photo">
-    </div>
-</div>
+    <div class="form-three-column col2" style="margin-top:30px;">
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
+                ID Number:
+            </label>
+            <input type="password" name="id number" placeholder="ID Number">
         </div>
+
+        <div class="form-item">
+            <label class="form-item-label">
+                <svg width="22" height="22" fill="#22b8aa" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                ID Photo:
+            </label>
+            <input type="file" name="id photo">
+        </div>
+    </div>
 
         <div class="form-full-column">
             <label class="form-item-label">
@@ -445,12 +466,18 @@
             </div>
         </div>
 
-        <button type="button" onclick="Check();Username_True();Password_True();Register();">Submit</button>
+        <button type="button">Submit</button>
         <br>
         <a href="login.html" style="font-size:16px;color:#333;margin-top:10px;">Already have an account?</a>
-    </div>
 </div>
 
-<div class="box3">Any Problem? Contact Us!  3024579532@qq.com</div>
+<div class="box3">Any Problem? Contact Us! 3024579532@qq.com</div>
+
+<script>
+    function Username_True(){}
+    function Password_True(){}
+    function Verification(){alert("Code sent!")}
+    function Check(){return true}
+</script>
 </body>
 </html>
