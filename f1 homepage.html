@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>VelocityAuto | Premium Car Trading Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #eef2f8;
+            transition: background-color 0.3s, color 0.2s;
+        }
+
+        body.dark {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark .brand-title h2,
+        body.dark .why h2 {
+            color: #f8e2b4;
+        }
+        body.dark .brand-item {
+            background: #1e252d;
+            color: #f0f0f0;
+            border-radius: 24px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+        }
+        body.dark .intro {
+            background: linear-gradient(105deg, #103344, #0b4255);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        body.dark .service-it {
+            background: #27382a70;
+            color: #f0f0f0;
+        }
+        body.dark .service-it:hover {
+            background: #308536c9;
+        }
+        body.dark .final {
+            background-color: #0b1320;
+            border-top: 1px solid #34495e;
+        }
+        body.dark .stats {
+            background: #242a35;
+            color: #e9c992;
+        }
+        body.dark .news-ticker {
+            background: #1e2a32;
+            border-bottom: 1px solid #ffcd7e;
+        }
+        body.dark .rank-card {
+            background: #1e2a32;
+            color: #f0f0f0;
+        }
+
+        /* 固定导航栏 完全不改原样 */
+        .box-fixed {
+            height: 70px;
+            background-color: rgba(25, 25, 35, 0.95);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            right: 0;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 48px;
+            height: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            transition: transform 0.2s;
+        }
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+        .box-fixed h1 {
+            color: #f7d98c;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #f5c542, #e6b422);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-links a:hover {
+            color: #ffcd7e;
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: #2c2f36;
+            border: none;
+            color: #ffd966;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 40px;
+            transition: 0.2s;
+            margin-left: 8px;
+        }
+        .theme-toggle:hover {
+            background: #444b55;
+        }
+
+        .banner {
+            width: 100%;
+            height: 800px;
+            background-image: url('0d895e95799c9364feb632544f811d1e.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            margin-top: 70px;
+            box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-context {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 35px 50px;
+            border-radius: 28px;
+            color: white;
+            width: 80%;
+            max-width: 700px;
+            border: 1px solid rgba(255,220,140,0.6);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .hero-context h1 {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+        .hero-context p {
+            font-size: 1.2rem;
+            margin: 6px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #e9b933;
+            color: #1b262c;
+            font-weight: bold;
+            padding: 12px 32px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: 0.2s;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        }
+        .btn:hover {
+            background: #ffd078;
+            transform: scale(1.02);
+            color: #000;
+        }
+        .btn2 {
+            color: #f8e9cd;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 15px;
+            border-bottom: 1px dashed #ffd285;
+        }
+        .btn2:hover {
+            color: #ffd285;
+        }
+
+        /* 滚动新闻条 */
+        .news-ticker {
+            background: #2c3e50;
+            color: #f5e6b2;
+            padding: 10px 20px;
+            margin: 20px 60px 0 60px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .news-label {
+            background: #e9b933;
+            color: #1e2a2e;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .news-slider {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .news-track {
+            display: inline-block;
+            animation: scrollNews 22s linear infinite;
+            font-size: 1rem;
+            font-weight: 50;
+        }
+        .news-track span {
+            margin-right: 45px;
+        }
+        .news-track i {
+            margin-right: 8px;
+            color: #ffcd7e;
+        }
+        @keyframes scrollNews {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .live-clock {
+            background: rgba(0,0,0,0.5);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .all {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 50px 60px;
+            gap: 40px;
+        }
+
+        .brand {
+            flex: 2;
+            min-width: 280px;
+        }
+        .brand-title {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 30px;
+        }
+        .brand-title h2 {
+            font-size: 45px;
+            color: #222f3e;
+            font-family: fantasy;
+            letter-spacing: 1px;
+        }
+        .stats {
+            display: flex;
+            gap: 24px;
+            background: #e4ebf2;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 50;
+            color: #273746;
+        }
+        .brand-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 35px;
+            margin-bottom: 40px;
+            max-width: 100%;
+        }
+        .brand-item {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 20px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.07);
+            cursor: pointer;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .brand-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 22px 32px rgba(0, 0, 0, 0.14);
+            background: #fff8ee;
+        }
+        /* 车标图片变大：从110x110增大到150x150，同时保持框大小不变 */
+        .brand-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+        .brand-line {
+            height: 2px;
+            background: linear-gradient(90deg, #d1d9e0, #e9b933, #d1d9e0);
+            margin: 20px 0;
+        }
+
+        /* 排行榜卡片 */
+        .rank-card {
+            background: #ffffffdd;
+            border-radius: 28px;
+            padding: 18px 22px;
+            margin-top: 20px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .rank-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            border-left: 4px solid #e9b933;
+            padding-left: 12px;
+        }
+        .rank-list {
+            list-style: none;
+        }
+        .rank-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #ccc;
+            font-weight: 50;
+        }
+
+        .why {
+            flex: 1.2;
+            min-width: 280px;
+            background: rgba(243, 220, 162, 0.253);
+            border-radius: 32px;
+            padding: 20px 25px 30px;
+            backdrop-filter: blur(3px);
+        }
+        .why h2 {
+            font-size: 40px;
+            margin-bottom: 25px;
+            color: #222f3e;
+            font-family: fantasy;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .service-it {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            margin-bottom: 18px;
+            padding: 14px 20px;
+            background: #ffffffdd;
+            border-radius: 60px;
+            transition: 0.25s;
+            cursor: pointer;
+            gap: 18px;
+            font-weight: 50;
+        }
+        .service-it:hover {
+            background: #17b809d8;
+            color: white;
+            transform: scale(1.01);
+        }
+        .service-ic {
+            font-size: 32px;
+            min-width: 48px;
+            text-align: center;
+        }
+
+        .intro {
+            color: #fff3d9;
+            background-color: rgb(12, 66, 120);
+            margin: 40px 50px;
+            padding: 35px 50px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        .intro-logo {
+            width: 80px;
+            height: auto;
+            flex-shrink: 0;
+        }
+        .intro-text {
+            flex: 1;
+        }
+        .intro h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .intro p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .final {
+            background-color: #192733;
+            padding: 28px 20px;
+            text-align: center;
+            color: #e6e6e6;
+            font-size: 0.95rem;
+        }
+        .final p {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 1100px) {
+            .brand-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+            .all {
+                margin: 40px 30px;
+            }
+            .news-ticker {
+                margin: 15px 20px;
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 30px;
+            }
+            /* 响应式图片稍微缩小保持比例 */
+            .brand-item img {
+                width: 130px;
+                height: 130px;
+            }
+        }
+        @media (max-width: 750px) {
+            .box-fixed {
+                padding: 0 20px;
+            }
+            .nav-links {
+                gap: 16px;
+            }
+            .hero-context {
+                padding: 25px 20px;
+                width: 90%;
+            }
+            .hero-context h1 {
+                font-size: 2rem;
+            }
+            .brand-title {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .intro {
+                margin: 30px 20px;
+                padding: 30px 25px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .brand-item img {
+                width: 110px;
+                height: 110px;
+            }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #e9b933;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.2s;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+            z-index: 999;
+            color: #1b262c;
+        }
+        .back-to-top:hover {
+            background: #ffd078;
+            transform: scale(1.05);
+        }
+
+        /* 超级炫酷底部小车 —— 贴最底端 */
+        .cool-car {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 130px;
+            height: 50px;
+            z-index: 998;
+            cursor: pointer;
+            user-select: none;
+            filter: drop-shadow(0 0 10px currentColor);
+            transition: transform 0.1s linear;
+            color: #ff3b30; /* 初始红色 */
+        }
+        .cool-car:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+<div class="box-fixed">
+    <div class="logo">
+        <img src="LOGO.png" width="50" class="logo-img" alt="logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2745%27 fill=%27%23e6b422%27/%3E%3Ctext x=%2730%27 y=%2765%27 fill=%27black%27 font-size=%2740%27%3EV%3C/text%3E%3C/svg%3E'">
+        <h1>Homepage</h1>
+    </div>
+    <div class="nav-links">
+        <a href="add-car-page.html"><i class="fas fa-car"></i> Car Page</a>
+        <a href="search.html"><i class="fas fa-search"></i> Search</a>
+        <a href="car-detail.html"><i class="fas fa-info-circle"></i> Details</a>
+        <button class="theme-toggle" id="darkmodeToggle" aria-label="Dark Mode"><i class="fas fa-moon"></i></button>
+    </div>
+</div>
+
+<div class="banner">
+    <div class="hero-context">
+        <h1>Find Your Perfect Car</h1>
+        <p><i class="fas fa-check-circle"></i> Trusted sellers.</p>
+        <p><i class="fas fa-bolt"></i> Simple, fast, and secure online car shopping.</p>
+        <a href="login.html" class="btn">Log in <i class="fas fa-arrow-right"></i></a><br>
+        <a href="carregistration.html" class="btn2">Don't have an account? Sign up now</a>
+    </div>
+</div>
+
+<!-- 可滚动新闻条 + 实时时钟 -->
+<div class="news-ticker">
+    <div class="news-label"><i class="fas fa-newspaper"></i> Hot News</div>
+    <div class="news-slider">
+        <div class="news-track" id="newsTrack">
+            <span><i class="fas fa-gem"></i> Limited offer: 0% financing for first 50 buyers!</span>
+            <span><i class="fas fa-bolt"></i> New EV models just arrived - Book a test drive now</span>
+            <span><i class="fas fa-chart-line"></i> Used car prices dropped by 8% this month</span>
+            <span><i class="fas fa-trophy"></i> Top seller of the month: BMW M Series</span>
+            <span><i class="fas fa-gem"></i> Limited offer: 0% financing for first 50 buyers!</span>
+            <span><i class="fas fa-bolt"></i> New EV models just arrived - Book a test drive now</span>
+        </div>
+    </div>
+    <div class="live-clock" id="liveClock"><i class="far fa-clock"></i> Loading...</div>
+</div>
+
+<div class="all">
+    <div class="brand">
+        <div class="brand-title">
+            <h2><i class="fas fa-handshake"></i> Agent brand</h2>
+            <div class="stats" id="statsArea">
+                <span><i class="fas fa-users"></i> User Count：<span id="userCount">10000</span>+</span>
+                <span><i class="fas fa-car-side"></i> Vehicles for Sale：<span id="vehicleCount">3000</span>+</span>
+                <span><i class="fas fa-clipboard-list"></i> Completed Orders：<span id="orderCount">3500</span>+</span>
+            </div>
+        </div>
+
+        <!-- 八个车标图片已调大至150x150，框大小保持不变 -->
+        <div class="brand-list">
+            <div class="brand-item" data-brand="Bugatti">
+                <img src="9.png" alt="Bugatti" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23b5651d%27/%3E%3Ctext x=%2720%27 y=%2755%27 fill=%27white%27%3EB%3C/text%3E%3C/svg%3E'"> Bugatti
+            </div>
+            <div class="brand-item" data-brand="Land Rover">
+                <img src="2.png" alt="Land Rover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%232c5e2e%27/%3E%3Ctext x=%2715%27 y=%2755%27 fill=%27white%27%3ELR%3C/text%3E%3C/svg%3E'"> Land Rover
+            </div>
+            <div class="brand-item" data-brand="Rolls-Royce">
+                <img src="3.png" alt="Rolls-Royce" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23333%27/%3E%3Ctext x=%2715%27 y=%2755%27 fill=%27gold%27%3ERR%3C/text%3E%3C/svg%3E'"> Rolls-Royce
+            </div>
+            <div class="brand-item" data-brand="Audi">
+                <img src="4.png" alt="Audi" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%239999cc%27/%3E%3Ctext x=%2725%27 y=%2755%27 fill=%27white%27%3EA%3C/text%3E%3C/svg%3E'"> Audi
+            </div>
+        </div>
+        <div class="brand-line"></div>
+        <div class="brand-list">
+            <div class="brand-item" data-brand="BMW">
+                <img src="8.png" alt="BMW" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%231a5c9e%27/%3E%3Ctext x=%2725%27 y=%2755%27 fill=%27white%27%3EBMW%3C/text%3E%3C/svg%3E'"> BMW
+            </div>
+            <div class="brand-item" data-brand="Bentley">
+                <img src="5.png" alt="Bentley" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%233d2b1a%27/%3E%3Ctext x=%2715%27 y=%2755%27 fill=%27%23e6b422%27%3EB%3C/text%3E%3C/svg%3E'"> Bentley
+            </div>
+            <div class="brand-item" data-brand="Lotus">
+                <img src="6.png" alt="Lotus" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%2300755e%27/%3E%3Ctext x=%2720%27 y=%2755%27 fill=%27white%27%3EL%3C/text%3E%3C/svg%3E'"> Lotus
+            </div>
+            <div class="brand-item" data-brand="Lamborghini">
+                <img src="7.png" alt="Lamborghini" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23f4c542%27/%3E%3Ctext x=%2710%27 y=%2755%27 fill=%27black%27%3ELambo%3C/text%3E%3C/svg%3E'"> Lamborghini
+            </div>
+        </div>
+        
+        <!-- 品牌销量排行榜 -->
+        <div class="rank-card">
+            <h3><i class="fas fa-chart-simple"></i> Hot Sales Ranking 🔥</h3>
+            <ul class="rank-list" id="rankList">
+                <li><span>1. BMW</span> <span>2,380 units</span></li>
+                <li><span>2. Audi</span> <span>2,150 units</span></li>
+                <li><span>3. Lamborghini</span> <span>1,890 units</span></li>
+                <li><span>4. Land Rover</span> <span>1,670 units</span></li>
+                <li><span>5. Bugatti</span> <span>980 units</span></li>
+            </ul>
+        </div>
+        <p style="margin-top: 12px; font-size: 13px; color: #b68b40;"><i class="fas fa-mouse-pointer"></i> Click brands to view model highlights</p>
+    </div>
+
+    <div class="why">
+        <h2><i class="fas fa-gem"></i> Why Choose Us</h2>
+        <div class="service-it" data-serv="1">
+            <div class="service-ic">🚚</div>
+            <div>Free Delivery</div>
+        </div>
+        <div class="service-it" data-serv="2">
+            <div class="service-ic">💰</div>
+            <div>Competitive Prices</div>
+        </div>
+        <div class="service-it" data-serv="3">
+            <div class="service-ic">🛡️</div>
+            <div>100% Inspected</div>
+        </div>
+        <div class="service-it" data-serv="4">
+            <div class="service-ic">🚗</div>
+            <div>Test Drive Available</div>
+        </div>
+        <div class="service-it" data-serv="5">
+            <div class="service-ic">🔒</div>
+            <div>Safe & Secure Transactions</div>
+        </div>
+        <div class="service-it" data-serv="6">
+            <div class="service-ic">🔍</div>
+            <div>Easy Search & Filter</div>
+        </div>
+        <div class="service-it" data-serv="7">
+            <div class="service-ic">🛠️</div>
+            <div>Professional Car Inspection</div>
+        </div>
+        <div class="service-it" data-serv="8">
+            <div class="service-ic">⚡</div>
+            <div>Fast & Simple Process</div>
+        </div>
+    </div>
+</div>
+
+<div class="intro">
+    <img src="LOGO.png" class="intro-logo" alt="Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2745%27 fill=%27%23e6b422%27/%3E%3Ctext x=%2730%27 y=%2765%27 fill=%27black%27 font-size=%2740%27%3EV%3C/text%3E%3C/svg%3E'">
+    <div class="intro-text">
+        <h2><i class="fas fa-globe"></i> Welcome to a professional vehicle sharing platform</h2>
+        <p>Here, you can easily list your cars for sale and browse high-quality second-hand vehicles to find your dream car.</p>
+        <p>Whether you are looking for a family car, a sports car, or an SUV, join us now and experience the future of online car shopping!</p>
+        <div style="margin-top: 18px;"><i class="fas fa-chart-line"></i> Real-time inventory + Reliable protection</div>
+    </div>
+</div>
+
+<div class="final">
+    <p><i class="fas fa-phone-alt"></i> 📞 Contact: xxx xxxx xxxx</p>
+    <p><i class="fas fa-copyright"></i> 2026 teamwork by wsy ws zyq hyw</p>
+</div>
+
+<div class="back-to-top" id="backToTopBtn"><i class="fas fa-arrow-up"></i></div>
+
+<!-- 最底部炫酷小车 -->
+<svg class="cool-car" id="colorCar" viewBox="0 0 100 40">
+    <path d="M10 25 Q15 15 35 15 H65 Q85 15 90 25 L92 32 H8 L10 25Z" fill="currentColor"></path>
+    <rect x="20" y="15" width="60" height="10" rx="2" fill="rgba(255,255,250.2)"></rect>
+    <circle cx="25" cy="32" r="8" fill="#222"></circle>
+    <circle cx="75" cy="32" r="8" fill="#222"></circle>
+    <circle cx="25" cy="32" r="4" fill="#555"></circle>
+    <circle cx="75" cy="32" r="4" fill="#555"></circle>
+</svg>
+
+<script>
+    function JS(num){
+        const messages = {
+            1: "🚚 We offer free delivery to your door!",
+            2: "💰 Best price guaranteed!",
+            3: "🛡️ All vehicles are professionally inspected!",
+            4: "🚗 Book a test drive anytime!",
+            5: "🔒 We guarantee 100% safe and secure transactions for every car purchase, with full payment protection and fraud prevention.",
+            6: "🔍 Easily search and filter vehicles by model, year, price, color and more to find your dream car in seconds.",
+            7: "🛠️ Professional Car Inspection\nEvery vehicle undergoes a comprehensive 150-point professional inspection to ensure top quality and reliability.",
+            8: "⚡ Our streamlined process makes buying or selling a car fast, simple and hassle-free, saving you time and effort."
+        };
+        alert(messages[num] || "Service feature coming soon!");
+    }
+    
+    const serviceDivs = document.querySelectorAll('.service-it');
+    serviceDivs.forEach((div) => {
+        const servNum = div.getAttribute('data-serv');
+        if(servNum) {
+            div.addEventListener('click', (e) => {
+                e.stopPropagation();
+                JS(parseInt(servNum));
+                div.style.transform = "scale(0.98)";
+                setTimeout(() => div.style.transform = "", 150);
+            });
+        }
+    });
+    
+    const brandItems = document.querySelectorAll('.brand-item');
+    const brandDetails = {
+        "Bugatti": "🏎️ Bugatti: Ultimate hypercar, peak craftsmanship. Chiron Super Sport 300+ breaks limits.",
+        "Land Rover": "🌲 Land Rover: Luxury off-road benchmark, Defender & Range series, all-terrain tech.",
+        "Rolls-Royce": "👑 Rolls-Royce: First-class on land, Bespoke customization, Phantom luxury.",
+        "Audi": "🔘 Audi: Progress through technology. e-tron electric & RS performance beasts.",
+        "BMW": "🌀 BMW: Sheer driving pleasure, M power & i-series electric flagship.",
+        "Bentley": "✨ Bentley: British luxury, Bentayga W12 & Continental GT elegance.",
+        "Lotus": "🏁 Lotus: King of lightweight handling, Emira final combustion model.",
+        "Lamborghini": "🐂 Lamborghini: Ferocious bull, Revuelto V12 hybrid hypercar."
+    };
+    brandItems.forEach(item => {
+        const brandName = item.getAttribute('data-brand') || item.innerText.trim().split('\n')[0];
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const msg = brandDetails[brandName] || `✨ ${brandName} offers rich models, contact us for a test drive!`;
+            alert(msg);
+            item.style.transform = "scale(0.96)";
+            setTimeout(() => item.style.transform = "", 200);
+        });
+    });
+    
+    function animateNumber(element, target, duration = 1500) {
+        if(!element) return;
+        let start = parseInt(element.innerText) || 0;
+        let startTime = null;
+        const step = (timestamp) => {
+            if(!startTime) startTime = timestamp;
+            const progress = Math.min(1, (timestamp - startTime) / duration);
+            const current = Math.floor(progress * (target - start) + start);
+            element.innerText = current.toLocaleString();
+            if(progress < 1) requestAnimationFrame(step);
+            else element.innerText = target.toLocaleString();
+        };
+        requestAnimationFrame(step);
+    }
+    
+    const userSpan = document.getElementById('userCount');
+    const vehicleSpan = document.getElementById('vehicleCount');
+    const orderSpan = document.getElementById('orderCount');
+    if(userSpan) animateNumber(userSpan, 18760, 1600);
+    if(vehicleSpan) animateNumber(vehicleSpan, 5260, 1500);
+    if(orderSpan) animateNumber(orderSpan, 6830, 1700);
+    
+    const toggleBtn = document.getElementById('darkmodeToggle');
+    const isDark = localStorage.getItem('theme') === 'dark';
+    if(isDark) {
+        document.body.classList.add('dark');
+        toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+        toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const darkActive = document.body.classList.contains('dark');
+        localStorage.setItem('theme', darkActive ? 'dark' : 'light');
+        toggleBtn.innerHTML = darkActive ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+    
+    const backTop = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+        if(window.scrollY > 500) backTop.style.opacity = '1';
+        else backTop.style.opacity = '0';
+    });
+    backTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const clockSpan = document.getElementById('liveClock');
+        if(clockSpan) clockSpan.innerHTML = `<i class="far fa-clock"></i> ${timeStr}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    const newsTrack = document.getElementById('newsTrack');
+    if(newsTrack && newsTrack.children.length > 0) {
+        const clone = newsTrack.cloneNode(true);
+        newsTrack.parentElement.appendChild(clone);
+    }
+    
+    const navA = document.querySelectorAll('.nav-links a:not(#darkmodeToggle)');
+    navA.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if(href === "#" || href === "" || href === null) {
+                e.preventDefault();
+                alert(`🚀 ${link.innerText.trim()} page coming soon!`);
+            }
+        });
+    });
+
+    // ===================== 炫酷小车：自动移动 + 点击换色 =====================
+    const car = document.getElementById('colorCar');
+    let isDragging = false;
+    let offsetX = 0;
+    let autoMove = true;
+    let colorIndex = 0;
+    const colors = ['#ff3b30', '#007bff', '#ffcc00', '#34c759', '#af52de', '#1c1c1e'];
+
+    // 点击换色
+    car.addEventListener('click', () => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        car.style.color = colors[colorIndex];
+    });
+
+    // 拖动
+    car.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        autoMove = false;
+        offsetX = e.clientX - car.getBoundingClientRect().left;
+        car.style.transition = 'none';
+    });
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        let x = e.clientX - offsetX;
+        const maxX = window.innerWidth - car.offsetWidth;
+        if (x < 0) x = 0;
+        if (x > maxX) x = maxX;
+        car.style.left = x + 'px';
+    });
+    window.addEventListener('mouseup', () => {
+        isDragging = false;
+        setTimeout(() => { autoMove = true; }, 3000);
+        car.style.transition = 'transform 0.1s linear';
+    });
+
+    // 自动移动（严格限制在页面内）
+    let dir = 2;
+    function animateCar() {
+        if (!autoMove || isDragging) {
+            requestAnimationFrame(animateCar);
+            return;
+        }
+        const carWidth = car.offsetWidth;
+        const maxX = window.innerWidth - carWidth;
+        let x = parseFloat(car.style.left) || 0;
+        
+        x += dir;
+        
+        // 边界限制：不会超出屏幕
+        if (x <= 0) {
+            x = 0;
+            dir = 2;
+        }
+        if (x >= maxX) {
+            x = maxX;
+            dir = -2;
+        }
+        
+        car.style.left = x + 'px';
+        requestAnimationFrame(animateCar);
+    }
+    animateCar();
+</script>
+</body>
+</html>

@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Car Information - Car Sales Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f5f0;
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        /* Navigation bar styles - Gray Green Theme */
+        .navbar {        
+            height: 60px;        
+            background-color: rgba(87, 86, 86, 0.919);        
+            padding: 0 30px;        
+            border-radius: 8px;        
+            margin-bottom: 30px;        
+            display: flex;        
+            justify-content: space-between;        
+            align-items: center;        
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);    
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px; 
+        }
+
+        .navbar-logo {
+            width: 45px;   
+            height: 45px;
+            border-radius: 50%; 
+            object-fit: cover;  
+        }
+
+        .navbar-title-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: burlywood;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links {        
+            display: flex;        
+            gap: 30px;        
+            align-items: center;    
+        }
+
+        .nav-link {        
+            color: white;        
+            text-decoration: none;        
+            font-size: 19px;        
+            font-weight: 500;        
+            padding: 8px 5px;        
+            position: relative;        
+            transition: color 0.3s, transform 0.3s;    
+        }
+
+        .nav-link:hover {        
+            color: #35f361;        
+            transform: translateY(-2px);    
+        }
+
+        .nav-link::after {        
+            content: '';        
+            position: absolute;        
+            width: 0;        
+            height: 2px;        
+            bottom: 0;        
+            left: 0;        
+            background-color: #35f361;        
+            transition: width 0.3s;    
+        }
+
+        .nav-link:hover::after {        
+            width: 100%;    
+        }
+        
+        /* Main content area */
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 30px;
+            gap: 25px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Left button panel */
+        .left-nav {
+            width: 220px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #4a6f4a;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f0e8;
+            width: 80%;
+            text-align: center;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 8px;
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background-color: white;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            border-left: 4px solid transparent;
+            font-size: 16px;
+            color: #5a6c7d;
+        }
+        
+        .nav-button i {
+            width: 20px;
+            text-align: center;
+            color: #7b8a9e;
+        }
+        
+        .nav-button:hover {
+            background-color: #f0f5f0;
+            color: #4a6f4a;
+            border-left-color: #7bc47a;
+        }
+        
+        .nav-button.active {
+            background-color: #e8f4e8;
+            color: #4a6f4a;
+            border-left-color: #4a6f4a;
+            font-weight: 600;
+        }
+        
+        .nav-button.active i {
+            color: #4a6f4a;
+        }
+        
+        /* Middle form container - 扩展以包含更多内容 */
+        .form-container {
+            flex: 1;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eef2f7;
+        }
+        
+        .form-header h2 {
+            font-size: 24px;
+            color: #4a6f4a;
+        }
+        
+        .progress-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #7b8a9e;
+        }
+        
+        .progress-bar i {
+            color: #4CAF50;
+        }
+        
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #37474f;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #7bc47a;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(123, 196, 122, 0.1);
+        }
+        
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .color-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected {
+            border-color: #4a6f4a;
+            transform: scale(1.1);
+        }
+        
+        .image-upload-area {
+            border: 2px dashed #c2d1d9;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .image-upload-area:hover {
+            border-color: #7bc47a;
+            background-color: #f8faf8;
+        }
+        
+        .image-upload-area i {
+            font-size: 48px;
+            color: #a0b3a0;
+            margin-bottom: 15px;
+        }
+        
+        .image-upload-area h4 {
+            color: #5a6c5a;
+            margin-bottom: 8px;
+        }
+        
+        .image-upload-area p {
+            color: #8a9b8a;
+            font-size: 14px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eef2f7;
+        }
+        
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #4a6f4a;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a8c5a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 111, 74, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: #f0f5f0;
+            color: #5a6c7d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e6e0;
+        }
+        
+        /* 新增：中间表单下方的卡片容器 */
+        .form-bottom-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .quick-actions, .tips-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #7bc47a 0%, #4a6f4a 100%);
+            color: white;
+            padding: 18px 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .car-preview {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .car-image {
+            width: 100%;
+            height: 180px;
+            background-color: #f0f4f8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .car-image i {
+            font-size: 60px;
+            color: #b0bec5;
+        }
+        
+        .car-details {
+            text-align: left;
+        }
+        
+        .car-detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f4f8;
+        }
+        
+        .detail-label {
+            color: #7b8a9e;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: #37474f;
+            font-weight: 600;
+        }
+        
+        .quick-action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            background-color: #f8faf8;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background-color: #e8f4e8;
+            transform: translateY(-3px);
+        }
+        
+        .action-btn i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #4a6f4a;
+        }
+        
+        .tips-list {
+            list-style-type: none;
+        }
+        
+        .tips-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f4f8;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .tips-list i {
+            color: #4CAF50;
+            margin-top: 3px;
+        }
+        
+        /* Right panel - 现在只包含预览卡片 */
+        .right-panel {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .preview-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        /* 平台优势部分样式 - 与现有灰绿色主题保持一致 */
+        .platform-features {
+            padding: 60px 30px;
+            background: linear-gradient(to bottom, #f8faf8 0%, #f0f5f0 100%);
+            text-align: center;
+            margin: 40px 30px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .platform-features h3 {
+            font-size: 28px;
+            color: #4a6f4a;
+            margin-bottom: 40px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .platform-features h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #7bc47a, #4a6f4a);
+            border-radius: 2px;
+        }
+        
+        .features-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 用户提供的卡片样式，但进行了一些调整以匹配整体设计 */
+        .feature-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            width: 300px;
+            transition: all 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .feature-card-1 {
+            border-top-color: #28a745;
+        }
+        
+        .feature-card-2 {
+            border-top-color: #007bff;
+        }
+        
+        .feature-card-3 {
+            border-top-color: #ffc107;
+        }
+        
+        .feature-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h4 {
+            color: #37474f;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: #5a6c7d;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-nav, .right-panel {
+                width: 100%;
+            }
+            
+            .left-nav {
+                flex-direction: row;
+                padding: 15px;
+            }
+            
+            .nav-title {
+                display: none;
+            }
+            
+            .nav-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-button {
+                width: auto;
+                flex: 1;
+                min-width: 150px;
+                justify-content: center;
+            }
+            
+            .right-panel {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .preview-card {
+                flex: 1;
+                min-width: 300px;
+            }
+            
+            .features-container {
+                gap: 20px;
+            }
+            
+            .feature-card {
+                width: calc(33.333% - 20px);
+                min-width: 280px;
+            }
+            
+            .form-bottom-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;            
+                flex-direction: column;            
+                height: auto;            
+                padding: 15px 20px;            
+                gap: 15px;        
+                margin: 20px 20px 0;
+            }        
+            
+            .nav-links {            
+                gap: 20px;            
+                flex-wrap: wrap;            
+                justify-content: center;        
+            }        
+            .nav-link {            
+                font-size: 17px;        
+            }
+            
+            .main-container {
+                padding: 15px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .platform-features {
+                padding: 40px 20px;
+                margin: 20px 20px 20px;
+            }
+            
+            .feature-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {            
+                padding: 12px 15px;            
+                border-radius: 6px;        
+            }        
+            .nav-links {            
+                gap: 15px;        
+            }        
+            .nav-link {            
+                font-size: 16px;        
+            }        
+            .navbar-title {            
+                font-size: 22px;        
+            }    
+        }
+        
+        /* 错误提示样式 */
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-control.error {
+            border-color: #e74c3c;
+        }
+        
+        .form-control.valid {
+            border-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="navbar">    
+        <div class="logo-container">
+            <!-- 注意：这里需要你有实际的logo.png文件，或者可以替换为在线图片链接 -->
+            <img src="addcar/logo.png" alt="Car Sell Platform Logo" class="navbar-logo">
+            <span class="navbar-title-text">Add Car</span>
+        </div>
+        <div class="nav-links">        
+            <a href="f1 homepage.html" class="nav-link">Homepage</a>        
+            <a href="carregistration.html" class="nav-link active">Registration</a>        
+            <a href="search.html" class="nav-link">Search</a>        
+            <a href="car-detail.html" class="nav-link">Detail</a>    
+        </div>
+    </div>
+    
+    <!-- 主内容区域 -->
+    <div class="main-container">
+        <!-- 左侧导航按钮 -->
+        <div class="left-nav">
+            <div class="nav-title">Information Categories</div>
+            <div class="nav-buttons">
+                <button class="nav-button active" data-section="color">
+                    <i class="fas fa-palette"></i>
+                    <span>Color</span>
+                </button>
+                <button class="nav-button" data-section="model">
+                    <i class="fas fa-car-side"></i>
+                    <span>Model</span>
+                </button>
+                <button class="nav-button" data-section="year">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Year</span>
+                </button>
+                <button class="nav-button" data-section="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                </button>
+                <button class="nav-button" data-section="price">
+                    <i class="fas fa-tag"></i>
+                    <span>Price</span>
+                </button>
+                <button class="nav-button" data-section="image">
+                    <i class="fas fa-camera"></i>
+                    <span>Car Images</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 中间表单容器 -->
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Add New Car Information</h2>
+                <div class="progress-bar">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="progress-text">Completed 1/6 sections</span>
+                </div>
+            </div>
+            
+            <!-- 颜色部分 -->
+            <div id="color" class="form-section active">
+                <h3>Select Car Color</h3>
+                <p>Please select or enter the primary color of the car</p>
+                
+                <div class="form-group">
+                    <label for="colorInput">Car Color</label>
+                    <input type="text" id="colorInput" class="form-control" placeholder="Enter car color, e.g., Metallic Gray">
+                </div>
+                
+                <div class="form-group">
+                    <label>Or select from common colors</label>
+                    <div class="color-options">
+                        <div class="color-option selected" style="background-color: #2c3e50;" data-color="Space Gray"></div>
+                        <div class="color-option" style="background-color: #e74c3c;" data-color="Bright Red"></div>
+                        <div class="color-option" style="background-color: #3498db;" data-color="Ocean Blue"></div>
+                        <div class="color-option" style="background-color: #2ecc71;" data-color="Emerald Green"></div>
+                        <div class="color-option" style="background-color: #f1c40f;" data-color="Sunshine Yellow"></div>
+                        <div class="color-option" style="background-color: #9b59b6;" data-color="Mystic Purple"></div>
+                        <div class="color-option" style="background-color: #1abc9c;" data-color="Turquoise Green"></div>
+                        <div class="color-option" style="background-color: #ecf0f1;" data-color="Pearl White"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 型号部分 -->
+            <div id="model" class="form-section">
+                <h3>Enter Car Model</h3>
+                <p>Please enter the complete model information of the car</p>
+                
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <select id="brand" class="form-control">
+                        <option value="">Select car brand</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes">Mercedes-Benz</option>
+                        <option value="Audi">Audi</option>
+                        <option value="Tesla">Tesla</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modelName">Model Name</label>
+                    <input type="text" id="modelName" class="form-control" placeholder="e.g., Camry, Model 3, X5">
+                </div>
+                
+                <div class="form-group">
+                    <label for="trim">Trim Level</label>
+                    <input type="text" id="trim" class="form-control" placeholder="e.g., LE, Luxury, Performance">
+                </div>
+            </div>
+            
+            <!-- 年份部分 -->
+            <div id="year" class="form-section">
+                <h3>Select Production Year</h3>
+                <p>Please select the production year and registration year</p>
+                
+                <div class="form-group">
+                    <label for="manufactureYear">Manufacture Year</label>
+                    <input type="number" id="manufactureYear" class="form-control" min="2000" max="2024" value="2022">
+                </div>
+                
+                <div class="form-group">
+                    <label for="registrationYear">Registration Year</label>
+                    <input type="number" id="registrationYear" class="form-control" min="2000" max="2024" value="2022">
+                </div>
+            </div>
+            
+            <!-- 地点部分 -->
+            <div id="location" class="form-section">
+                <h3>Enter Vehicle Location</h3>
+                <p>Please enter the current location of the vehicle</p>
+                
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" placeholder="e.g., New York">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Detailed Address</label>
+                    <input type="text" id="address" class="form-control" placeholder="e.g., 123 Main Street">
+                </div>
+            </div>
+            
+            <!-- 价格部分 - 修复了验证bug -->
+            <div id="price" class="form-section">
+                <h3>Set Sale Price</h3>
+                <p>Please enter the sale price and any applicable discounts</p>
+                
+                <div class="form-group">
+                    <label for="price">Sale Price ($)</label>
+                    <input type="number" id="priceInput" class="form-control" placeholder="e.g., 25000" min="0">
+                    <div class="error-message" id="priceError">Please enter a valid sale price (minimum $1000)</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="discount">Discount (optional)</label>
+                    <input type="number" id="discount" class="form-control" placeholder="e.g., 1000" min="0">
+                    <div class="error-message" id="discountError">Discount cannot be greater than sale price</div>
+                </div>
+            </div>
+            
+            <!-- 图片部分 -->
+            <div id="image" class="form-section">
+                <h3>Upload Car Images</h3>
+                <p>Please upload clear car images, up to 10 images allowed</p>
+                
+                <div class="form-group">
+                    <label>Car Images</label>
+                    <div class="image-upload-area" id="imageUpload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Click or drag images here to upload</h4>
+                        <p>Supports JPG, PNG formats, maximum 5MB per image</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Uploaded Images</label>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+                        <div style="background-color: #f0f4f8; height: 100px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-car" style="font-size: 30px; color: #b0bec5;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 表单操作按钮 -->
+            <div class="form-actions">
+                <button class="btn btn-secondary" id="prevBtn">Previous</button>
+                <button class="btn btn-primary" id="nextBtn">Next</button>
+            </div>
+            
+            <!-- 新增：表单下方的Quick Actions和Filling Tips卡片 -->
+            <div class="form-bottom-cards">
+                <!-- Quick actions -->
+                <div class="quick-actions">
+                    <div class="card-header">
+                        <i class="fas fa-bolt"></i> Quick Actions
+                    </div>
+                    <div class="card-content">
+                        <div class="quick-action-buttons">
+                            <button class="action-btn" id="saveDraft">
+                                <i class="fas fa-save"></i>
+                                <span>Save Draft</span>
+                            </button>
+                            <button class="action-btn" id="clearForm">
+                                <i class="fas fa-eraser"></i>
+                                <span>Clear Form</span>
+                            </button>
+                            <button class="action-btn" id="copyInfo">
+                                <i class="fas fa-copy"></i>
+                                <span>Copy Info</span>
+                            </button>
+                            <button class="action-btn" id="templateBtn">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Use Template</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tips card -->
+                <div class="tips-card">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i> Filling Tips
+                    </div>
+                    <div class="card-content">
+                        <ul class="tips-list">
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ensure accurate color descriptions to attract potential buyers</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>High-quality images can increase views by 30%</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Detailed vehicle condition descriptions help with faster sales</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-check-circle"></i>
+                                <span>Set reasonable prices by referencing similar models and years</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧面板 - 现在只包含预览卡片 -->
+        <div class="right-panel">
+            <!-- 预览卡片 -->
+            <div class="preview-card">
+                <div class="card-header">
+                    <i class="fas fa-eye"></i> Information Preview
+                </div>
+                <div class="card-content">
+                    <div class="car-preview">
+                        <div class="car-image">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="car-details">
+                            <div class="car-detail-item">
+                                <span class="detail-label">Color:</span>
+                                <span class="detail-value" id="previewColor">Space Gray</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Model:</span>
+                                <span class="detail-value" id="previewModel">Not selected</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Year:</span>
+                                <span class="detail-value" id="previewYear">Not selected</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Location:</span>
+                                <span class="detail-value" id="previewLocation">Not selected</span>
+                            </div>
+                            <div class="car-detail-item">
+                                <span class="detail-label">Price:</span>
+                                <span class="detail-value" id="previewPrice">Not set</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 平台优势展示部分 - 使用用户提供的三个卡片，已删除"Learn how it works"按钮 -->
+    <div class="platform-features">
+        <h3>Why Choose Our Platform?</h3>
+        <div class="features-container">
+            
+            <!-- 优势卡片 1 - 安全与保障 -->
+            <div class="feature-card feature-card-1">
+                <div class="icon" style="color: #28a745;">🛡️</div>
+                <h4>Safe & Secure</h4>
+                <p>Your data is protected with industry-standard encryption. Trade with confidence.</p>
+            </div>
+            
+            <!-- 优势卡片 2 - 快速销售 -->
+            <div class="feature-card feature-card-2">
+                <div class="icon" style="color: #007bff;">🚀</div>
+                <h4>Fast Selling</h4>
+                <p>Our platform has millions of active buyers. Sell your car faster than traditional methods.</p>
+            </div>
+            
+            <!-- 优势卡片 3 - 最佳价格 -->
+            <div class="feature-card feature-card-3">
+                <div class="icon" style="color: #ffc107;">💰</div>
+                <h4>Best Price Offers</h4>
+                <p>Get competitive offers from verified dealers and reach your desired price easily.</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const navButtons = document.querySelectorAll('.nav-button');
+        const formSections = document.querySelectorAll('.form-section');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const colorOptions = document.querySelectorAll('.color-option');
+        const colorInput = document.getElementById('colorInput');
+        const priceInput = document.getElementById('priceInput');
+        const discountInput = document.getElementById('discount');
+        const priceError = document.getElementById('priceError');
+        const discountError = document.getElementById('discountError');
+        const previewElements = {
+            color: document.getElementById('previewColor'),
+            model: document.getElementById('previewModel'),
+            year: document.getElementById('previewYear'),
+            location: document.getElementById('previewLocation'),
+            price: document.getElementById('previewPrice')
+        };
+        
+        // 当前激活的表单部分索引
+        let currentSectionIndex = 0;
+        const sectionIds = ['color', 'model', 'year', 'location', 'price', 'image'];
+        
+        // 价格验证状态
+        let priceIsValid = false;
+        let discountIsValid = true; // 折扣默认可选，所以默认有效
+        
+        // 初始化
+        function init() {
+            // 设置初始激活的导航按钮和表单部分
+            updateActiveSection();
+            
+            // 添加快捷操作按钮事件
+            document.getElementById('saveDraft').addEventListener('click', () => {
+                alert('Draft saved!');
+            });
+            
+            document.getElementById('clearForm').addEventListener('click', clearForm);
+            
+            document.getElementById('copyInfo').addEventListener('click', () => {
+                // 复制信息逻辑
+                const carInfo = `Color: ${previewElements.color.textContent}\nModel: ${previewElements.model.textContent}\nYear: ${previewElements.year.textContent}\nLocation: ${previewElements.location.textContent}\nPrice: ${previewElements.price.textContent}`;
+                navigator.clipboard.writeText(carInfo).then(() => {
+                    alert('Car information copied to clipboard!');
+                }).catch(err => {
+                    // 备用方法
+                    const textArea = document.createElement('textarea');
+                    textArea.value = carInfo;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    alert('Car information copied to clipboard!');
+                });
+            });
+            
+            document.getElementById('templateBtn').addEventListener('click', () => {
+                alert('Use template feature under development...');
+            });
+            
+            // 添加上传区域点击事件
+            document.getElementById('imageUpload').addEventListener('click', () => {
+                // 模拟文件选择
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/*';
+                fileInput.multiple = true;
+                fileInput.click();
+                
+                fileInput.addEventListener('change', () => {
+                    if(fileInput.files.length > 0) {
+                        alert(`Selected ${fileInput.files.length} image(s)`);
+                    }
+                });
+            });
+            
+            // 颜色选择事件
+            colorOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // 移除其他选项的选中状态
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    // 添加当前选项的选中状态
+                    option.classList.add('selected');
+                    // 更新颜色输入框
+                    colorInput.value = option.getAttribute('data-color');
+                    // 更新预览
+                    updatePreview('color', option.getAttribute('data-color'));
+                });
+            });
+            
+            // 颜色输入框事件
+            colorInput.addEventListener('input', () => {
+                // 如果颜色输入框有值，移除所有颜色选项的选中状态
+                if (colorInput.value) {
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    updatePreview('color', colorInput.value);
+                }
+            });
+            
+            // 价格输入事件 - 修复验证逻辑
+            priceInput.addEventListener('input', function() {
+                validatePrice();
+                updatePricePreview();
+            });
+            
+            // 折扣输入事件
+            discountInput.addEventListener('input', function() {
+                validateDiscount();
+                updatePricePreview();
+            });
+            
+            // 其他表单字段的输入事件
+            setupFormEvents();
+            
+            // 导航按钮点击事件
+            navButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    currentSectionIndex = index;
+                    updateActiveSection();
+                });
+            });
+            
+            // 上一步按钮事件
+            prevBtn.addEventListener('click', goToPreviousSection);
+            
+            // 下一步按钮事件
+            nextBtn.addEventListener('click', goToNextSection);
+        }
+        
+        // 验证价格
+        function validatePrice() {
+            const price = parseFloat(priceInput.value);
+            const minPrice = 1000;
+            
+            // 重置错误状态
+            priceInput.classList.remove('error', 'valid');
+            priceError.style.display = 'none';
+            
+            if (!priceInput.value) {
+                priceIsValid = false;
+                priceInput.classList.add('error');
+                priceError.textContent = 'Please enter a sale price';
+                priceError.style.display = 'block';
+                return false;
+            }
+            
+            if (isNaN(price) || price < minPrice) {
+                priceIsValid = false;
+                priceInput.classList.add('error');
+                priceError.textContent = `Please enter a valid sale price (minimum $${minPrice})`;
+                priceError.style.display = 'block';
+                return false;
+            }
+            
+            priceIsValid = true;
+            priceInput.classList.add('valid');
+            
+            // 如果价格有效，也需要验证折扣
+            if (discountInput.value) {
+                validateDiscount();
+            }
+            
+            return true;
+        }
+        
+        // 验证折扣
+        function validateDiscount() {
+            const price = parseFloat(priceInput.value);
+            const discount = parseFloat(discountInput.value) || 0;
+            
+            // 重置错误状态
+            discountInput.classList.remove('error', 'valid');
+            discountError.style.display = 'none';
+            
+            // 如果没有输入价格，或者价格无效，不验证折扣
+            if (!priceIsValid) {
+                discountIsValid = false;
+                return false;
+            }
+            
+            if (discountInput.value && (isNaN(discount) || discount < 0)) {
+                discountIsValid = false;
+                discountInput.classList.add('error');
+                discountError.textContent = 'Please enter a valid discount';
+                discountError.style.display = 'block';
+                return false;
+            }
+            
+            if (discount > price) {
+                discountIsValid = false;
+                discountInput.classList.add('error');
+                discountError.textContent = 'Discount cannot be greater than sale price';
+                discountError.style.display = 'block';
+                return false;
+            }
+            
+            discountIsValid = true;
+            if (discountInput.value) {
+                discountInput.classList.add('valid');
+            }
+            
+            return true;
+        }
+        
+        // 清空表单函数
+        function clearForm() {
+            if(confirm('Are you sure you want to clear all form content?')) {
+                // 清空表单逻辑
+                colorInput.value = '';
+                document.getElementById('brand').value = '';
+                document.getElementById('modelName').value = '';
+                document.getElementById('trim').value = '';
+                document.getElementById('manufactureYear').value = '2022';
+                document.getElementById('registrationYear').value = '2022';
+                document.getElementById('city').value = '';
+                document.getElementById('address').value = '';
+                priceInput.value = '';
+                discountInput.value = '';
+                
+                // 重置颜色选择
+                colorOptions.forEach(option => option.classList.remove('selected'));
+                colorOptions[0].classList.add('selected');
+                updatePreview('color', 'Space Gray');
+                
+                // 重置预览
+                updatePreview('model', 'Not selected');
+                updatePreview('year', 'Not selected');
+                updatePreview('location', 'Not selected');
+                updatePreview('price', 'Not set');
+                
+                // 重置验证状态
+                priceIsValid = false;
+                discountIsValid = true;
+                priceInput.classList.remove('error', 'valid');
+                discountInput.classList.remove('error', 'valid');
+                priceError.style.display = 'none';
+                discountError.style.display = 'none';
+                
+                // 回到第一步
+                currentSectionIndex = 0;
+                updateActiveSection();
+                
+                alert('Form cleared successfully!');
+            }
+        }
+        
+        // 更新激活的部分
+        function updateActiveSection() {
+            // 移除所有激活状态
+            navButtons.forEach(button => button.classList.remove('active'));
+            formSections.forEach(section => section.classList.remove('active'));
+            
+            // 添加当前激活状态
+            navButtons[currentSectionIndex].classList.add('active');
+            formSections[currentSectionIndex].classList.add('active');
+            
+            // 更新按钮文本
+            if (currentSectionIndex === 0) {
+                prevBtn.style.visibility = 'hidden';
+            } else {
+                prevBtn.style.visibility = 'visible';
+            }
+            
+            if (currentSectionIndex === sectionIds.length - 1) {
+                nextBtn.textContent = 'Submit Information';
+            } else {
+                nextBtn.textContent = 'Next';
+            }
+            
+            // 更新进度文本
+            document.getElementById('progress-text').textContent = `Completed ${currentSectionIndex + 1}/6 sections`;
+        }
+        
+        // 更新预览信息
+        function updatePreview(section, value) {
+            if (previewElements[section]) {
+                previewElements[section].textContent = value;
+            }
+        }
+        
+        // 设置表单事件监听器
+        function setupFormEvents() {
+            // 品牌选择事件
+            document.getElementById('brand').addEventListener('change', function() {
+                if (this.value && document.getElementById('modelName').value) {
+                    updatePreview('model', `${this.value} ${document.getElementById('modelName').value}`);
+                }
+            });
+            
+            // 型号名称输入事件
+            document.getElementById('modelName').addEventListener('input', function() {
+                const brand = document.getElementById('brand').value;
+                if (brand && this.value) {
+                    updatePreview('model', `${brand} ${this.value}`);
+                } else if (this.value) {
+                    updatePreview('model', this.value);
+                }
+            });
+            
+            // 生产年份输入事件
+            document.getElementById('manufactureYear').addEventListener('input', function() {
+                updatePreview('year', `${this.value} Year`);
+            });
+            
+            // 城市输入事件
+            document.getElementById('city').addEventListener('input', function() {
+                const address = document.getElementById('address').value;
+                if (this.value && address) {
+                    updatePreview('location', `${this.value}, ${address}`);
+                } else if (this.value) {
+                    updatePreview('location', this.value);
+                }
+            });
+            
+            // 地址输入事件
+            document.getElementById('address').addEventListener('input', function() {
+                const city = document.getElementById('city').value;
+                if (city && this.value) {
+                    updatePreview('location', `${city}, ${this.value}`);
+                } else if (this.value) {
+                    updatePreview('location', this.value);
+                }
+            });
+        }
+        
+        // 更新价格预览
+        function updatePricePreview() {
+            if (priceIsValid && priceInput.value) {
+                const discount = discountInput.value || 0;
+                const finalPrice = parseInt(priceInput.value) - parseInt(discount);
+                updatePreview('price', `$${finalPrice.toLocaleString()}`);
+            } else {
+                updatePreview('price', 'Not set');
+            }
+        }
+        
+        // 表单验证
+        function validateCurrentSection() {
+            const currentSection = sectionIds[currentSectionIndex];
+            
+            switch(currentSection) {
+                case 'color':
+                    if (!colorInput.value.trim()) {
+                        alert('Please select or enter a car color.');
+                        return false;
+                    }
+                    break;
+                    
+                case 'model':
+                    const brand = document.getElementById('brand').value;
+                    const modelName = document.getElementById('modelName').value;
+                    if (!brand) {
+                        alert('Please select a car brand.');
+                        return false;
+                    }
+                    if (!modelName.trim()) {
+                        alert('Please enter a model name.');
+                        return false;
+                    }
+                    break;
+                    
+                case 'year':
+                    const manufactureYear = document.getElementById('manufactureYear').value;
+                    const registrationYear = document.getElementById('registrationYear').value;
+                    if (!manufactureYear || parseInt(manufactureYear) < 2000 || parseInt(manufactureYear) > 2024) {
+                        alert('Please enter a valid manufacture year between 2000 and 2024.');
+                        return false;
+                    }
+                    if (!registrationYear || parseInt(registrationYear) < 2000 || parseInt(registrationYear) > 2024) {
+                        alert('Please enter a valid registration year between 2000 and 2024.');
+                        return false;
+                    }
+                    if (parseInt(registrationYear) < parseInt(manufactureYear)) {
+                        alert('Registration year cannot be earlier than manufacture year.');
+                        return false;
+                    }
+                    break;
+                    
+                case 'location':
+                    const city = document.getElementById('city').value;
+                    const address = document.getElementById('address').value;
+                    if (!city.trim()) {
+                        alert('Please enter a city.');
+                        return false;
+                    }
+                    if (!address.trim()) {
+                        alert('Please enter a detailed address.');
+                        return false;
+                    }
+                    break;
+                    
+                case 'price':
+                    // 使用新的验证逻辑
+                    const priceValid = validatePrice();
+                    const discountValid = validateDiscount();
+                    
+                    if (!priceValid || !discountValid) {
+                        // 如果有错误，滚动到第一个错误
+                        if (!priceValid) {
+                            priceInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        } else if (!discountValid) {
+                            discountInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        return false;
+                    }
+                    break;
+                    
+                case 'image':
+                    // 图片验证（可选）
+                    break;
+            }
+            
+            return true;
+        }
+        
+        // 跳转到上一部分
+        function goToPreviousSection() {
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                updateActiveSection();
+            }
+        }
+        
+        // 跳转到下一部分
+        function goToNextSection() {
+            // 验证当前部分
+            if (!validateCurrentSection()) {
+                return;
+            }
+            
+            if (currentSectionIndex < sectionIds.length - 1) {
+                currentSectionIndex++;
+                updateActiveSection();
+            } else {
+                // 提交表单
+                submitForm();
+            }
+        }
+        
+        // 提交表单
+        function submitForm() {
+            // 最终验证
+            if (!validateCurrentSection()) {
+                return;
+            }
+            
+            // 收集所有表单数据
+            const formData = {
+                color: colorInput.value,
+                brand: document.getElementById('brand').value,
+                modelName: document.getElementById('modelName').value,
+                trim: document.getElementById('trim').value,
+                manufactureYear: document.getElementById('manufactureYear').value,
+                registrationYear: document.getElementById('registrationYear').value,
+                city: document.getElementById('city').value,
+                address: document.getElementById('address').value,
+                price: priceInput.value,
+                discount: discountInput.value || 0,
+                submissionDate: new Date().toISOString()
+            };
+            
+            // 在实际应用中，这里会发送数据到服务器
+            console.log('Form submitted:', formData);
+            
+            // 显示成功消息
+            alert('Car information submitted successfully!\n\nYour car listing will be reviewed and published shortly.');
+            
+            // 在实际应用中，这里可能会重定向到确认页面
+            // window.location.href = 'confirmation.html';
+        }
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
